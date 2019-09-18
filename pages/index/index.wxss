@@ -1,0 +1,235 @@
+/**index.wxss**/
+page{
+	width: 100%;
+  min-height: 100vh;
+	/* overflow-y: auto!important; */
+	background-color: #eee;
+}
+.container{
+	min-height: 100%;
+	height: auto;
+	/* display: flex;
+	flex-direction: column;
+	align-items: center; */
+	background-color: #eee;
+}
+.zzgg{
+  width: 100%;
+  padding-left: 30rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  background: #fffcee;
+}
+.zzgg .iconfont{
+  color: #ff9d59;
+  margin-right: 10rpx;
+}
+.zzgg text{
+  font-size: 22rpx;
+  color: #ff9d59;
+}
+.main{
+	width: 100%;
+	/* padding: 0 24rpx; */
+  /* padding-top: 26rpx; */
+	/* background-color: #f5f5f5; */
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+/*swiper*/
+.swiper_box{
+  position: relative;
+}
+.gomy{
+  position: absolute;
+  top:22rpx;
+  right: 32rpx;
+  z-index: 99;
+  font-size: 28rpx;
+  color: #fff;
+}
+.iconwode{
+  font-size: 28rpx;
+  margin-right: 10rpx;
+  color: #fff;
+}
+.swiper{	
+	width: 100%;
+	height: 328rpx;
+	/* border-radius: 12rpx; */
+	/* margin-bottom: 55rpx; */
+}
+/* .swiper_item{
+	padding-bottom: 20px;
+} */
+.swiper image{
+	width: 100%;
+	height: 328rpx;
+	border-radius: 12rpx;
+}
+.imsg{
+  width: 100%;
+  height: 74rpx;
+  display: flex;
+  padding: 0 22rpx;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  font-size:24rpx;
+  font-family:Microsoft YaHei;
+  font-weight:400;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+}
+.imsg_v{
+  color: #eb2f16
+}
+.fw_box{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+  padding-top: 26rpx;
+  background: #fff;
+}
+.fw_one{
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-bottom: 24rpx;
+}
+.fw_one image{
+	width: 88rpx;
+	height: 88rpx;
+	margin-bottom: 12rpx;
+}
+.fw_one text{
+	font-family: PingFang-SC-Regular;
+	font-size: 26rpx;
+	color: #333333;
+}
+.tcmsg{
+  margin-top: 20rpx;
+  width: 100%;
+  height: 72rpx;
+  padding: 0 22rpx;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  background: #fff;
+}
+.tctc{
+  font-size:30rpx;
+  font-family:FZZhengHeiS-M-GB;
+  font-weight:400;
+  color: #333;
+}
+.tcm_img{
+  width:68rpx;
+  height:36rpx;
+  background:rgba(235,47,22,1);
+  border-radius:4rpx;
+  margin-left: 5rpx;
+
+}
+.swiper1{
+  flex: 1;
+  height: 70rpx;
+  overflow: hidden;
+}
+.swi_tc{
+  width: 100%;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  height: 70rpx;
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: #ff9b59;
+}
+.tc_tab{
+  width: 100%;
+  height: 82rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+}
+.tctab_box{
+  width: 100%;
+  /* height: 82rpx; */
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+}
+.tctabone{
+  display: inline-flex;
+  width:100rpx;
+  height:46rpx;
+  background:#F0F0F0;
+  color: #666666;
+  border-radius:23rpx;
+  font-size: 26rpx;
+  align-items: center;
+  justify-content: center;
+  margin:18rpx 10rpx;
+}
+.tctabone.cur{
+  background:#3592E2;
+  color: #fff;
+}
+.tc_li{
+  width: 100%;
+  padding: 32rpx 22rpx;
+  box-sizing: border-box;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+.li_tit{
+  width: 100%;
+  border-left: 3rpx solid #3592E2;
+  padding-left: 15rpx;
+  box-sizing: border-box;
+  font-size:30rpx;
+  font-family:Microsoft YaHei;
+  font-weight:400;
+  color: #333;
+  line-height: 1;
+  margin-bottom: 29rpx;
+}
+.li_inr{
+  font-size:26rpx;
+  font-family:Microsoft YaHei;
+  font-weight:400;
+  color:#999999;
+  line-height:36rpx;
+  margin-bottom: 36rpx;
+  
+}
+.li_cz{
+  display: flex;
+}
+.li_see{
+  width: 160rpx;
+  font-size:26rpx;
+  font-family:Microsoft YaHei;
+  font-weight:400;
+  color:#999999;
+  display: flex;
+  align-items: center;
+}
+.li_see .iconfont{
+  font-size:30rpx;
+  margin-right: 10rpx;
+}
+.li_time{
+  flex: 1;
+  text-align: right;
+  font-size:26rpx;
+  font-family:Microsoft YaHei;
+  font-weight:400;
+  color:#999;
+}

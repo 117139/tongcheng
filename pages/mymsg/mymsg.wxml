@@ -1,0 +1,60 @@
+<!--pages/mymsg/mymsg.wxml-->
+<form class="w100"  bindsubmit="formSubmit">
+	<view class='container'>
+    <view class="tx_box">
+		<text class="msg_name">头像</text>
+		<image src="{{member.HeadPicUrl}}"></image>
+	</view>
+	<view class="msg_box">
+		<text class="msg_name">姓名</text>
+    <input wx:if="{{!member.RealName}}" class="msg_int" type="text" name="name" placeholder="请输入您的姓名" />
+		<view wx:if="{{member.RealName}}" class="dis_flex aic msg_val">{{member.RealName}}</view>
+	</view>
+	<picker  wx:if="{{!member.RealName}}" class="w100" bindchange="bindPickerChange" value="{{index}}" range="{{sex}}" range-key='name'>
+		<view class="msg_box">
+			<text class="msg_name">性别</text>
+			<view class="dis_flex aic msg_val">{{sex[index].name}}<text class="iconfont iconnext"></text></view>
+		</view>
+		<input class="hidden" name="sex"
+		 type="text"
+		 value="{{sex[index].value}}" disabled/>
+	</picker>
+  <view  wx:if="{{member.RealName}}" class="msg_box">
+			<text class="msg_name">性别</text>
+			<view class="dis_flex aic msg_val">{{member.Sex==1? '男':'女'}}</view>
+		</view>
+	<view class="msg_box">
+		<text class="msg_name">电话</text>
+		<input wx:if="{{!member.RealName}}" class="msg_int" type="text" name="tel" placeholder="请输入手机号" />
+		<view wx:if="{{member.RealName}}" class="dis_flex aic msg_val">{{member.Phone}}</view>
+	</view>
+	 <picker wx:if="{{!member.RealName}}" class="w100"
+	  mode="region"
+	  bindchange="bindRegionChange"
+	  value="{{region}}"
+	>
+    <view class="msg_box">
+      <text class="msg_name">现居住地</text>
+      <view class="dis_flex aic msg_val">{{region[0]}} {{region[1]}} {{region[2]}} <text class="iconfont iconnext"></text></view>
+    </view>
+  
+	  <input class="hidden" name="address"
+      type="text"
+      value="{{region[0]}} {{region[1]}} {{region[2]}}" disabled/>
+	</picker>
+  <view wx:if="{{member.RealName}}" class="msg_box">
+		<text class="msg_name">现居住地</text>
+		<view class="dis_flex aic msg_val">{{member.Country}} {{member.City}} {{member.Province}}</view>
+	</view>
+	<view class="msg_box msg_box1">
+		<!-- <text class="msg_name">详细地址</text> -->
+		<textarea wx:if="{{!member.RealName}}" class="msgsrk" name="xxaddress" 
+     placeholder="街道、楼牌号等" auto-height="true"></textarea>
+		<textarea wx:if="{{member.RealName}}" class="msgsrk" name="xxaddress" disabled='' value='{{member.Address}}' auto-height="true"></textarea>
+		<!-- <view class="dis_flex aic msg_val">12456321458</view> -->
+	</view>
+	<view wx:if="{{!member.RealName}}" class="w100 dis_flex ju_c">
+		<button class="sub_btn" form-type="submit">保存</button>
+	</view>
+  </view>
+</form>

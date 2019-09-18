@@ -1,0 +1,35 @@
+<!--pages/baoxiu/baoxiu.wxml-->
+<import src="/utils/htmlStatus/index.wxml" />
+
+<wxs src="../../utils/filter.wxs" module="filter" />
+<view class="container">
+	<!-- <view class="zanwu">暂无数据</view>
+	<view class="zanwu" bindtap="retry">加载失败,请点击重试</view> -->
+	<view class="baoxiu_box" wx:for="{{bx_data}}"
+				wx:for-index="idx"
+				wx:for-item="item"
+				wx:key="idx">
+		<image src="../../static/images/baoxiu_03.png"></image>
+		<view class="bx_titi">保修卡</view>
+		<view class="bx_msg">
+			<view class="msg_one">
+				<view class="msg_name"><text>产品名称</text> :</view>
+				<view class='oh1 flex1'>{{item.shopgroupname}}</view>
+			</view>
+			<view class="msg_one">
+				<view class="msg_name"><text>客服电话</text> :</view>
+				<view> {{kefu.str1}}</view>
+			</view>
+			<view class="msg_one">
+				<view class="msg_name"><text>订单编号</text> :</view>
+				<view>{{item.out_trade_no}}</view>
+			</view>
+			<view class="msg_one">
+				<view class="msg_name"><text>期限时间</text> :</view>
+				<view>至{{filter.getTime(item.endtime)}}</view>
+			</view>
+			
+		</view>
+	</view>
+	<template is="htmlStatus" data="{{...htmlStatus}}" />
+</view>

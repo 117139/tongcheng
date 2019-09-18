@@ -1,0 +1,80 @@
+<!--pages/order_xq/order_xq.wxml-->
+<wxs src="../../utils/filter.wxs" module="filter" />
+<view wx:if="{{xqData!==''}}" class="container">
+  <view wx:if="{{xqData.task_userid}}" class="o_header">
+		<image class="user_tx" src="{{xqData.task_userpic}}"></image>
+		<view class="user_msg">
+			<view class="user_name">维修师傅：{{xqData.task_username}}</view>
+			<view class="fz28 c6">订单状态：{{xqData.statusname}}</view>
+		</view>
+		<image class="tel_icon" src="../../static/images/tel_03.png"  data-tel="{{xqData.task_userphone}}" bindtap="call"></image>
+	</view>
+	<view class="o_tit">
+		订单信息
+	</view>
+	<view class="dd_msg">
+		<view class='oh1 mb20'>{{xqData.shopgroupname}} {{xqData.shopname}}</view>
+		<view class='oh1 mb20'>{{xqData.description}}</view>
+    <view wx:if="{{xqData.pics}}" class="imgbox">
+			<view class="addimg1" wx:for="{{filter.getgimgarrIP(xqData.pics)}}" 
+					 wx:for-index="idx"
+					 wx:for-item="item"
+					 wx:key="idx"
+					 data-idx="{{idx}}"
+					 bindtap="imgdel">
+				<image  src="{{item}}" 
+          data-src="{{item}}" 
+          data-array="{{filter.getgimgarrIP(xqData.pics)}}"
+          mode="aspectFill" bindtap='pveimg'></image>
+			</view>
+		</view>
+	</view>
+	<view class="o_address">
+		<text class="iconfont icontubiaozhizuomoban_fuzhi"></text>
+		<view class="fz28 oh1">{{xqData.address_str}}</view>
+	</view>
+	<view class="o_msg1">订单编号：{{xqData.out_trade_no}}</view>
+	<view class="o_msg1">下单时间：{{filter.getTime(xqData.addtime)}}</view>
+	<view class="o_msg1">订单状态：{{xqData.statusname}}</view>
+	<view class="o_msg1 mb20">维修师傅：{{xqData.task_username?xqData.task_username:'无'}}</view>
+  	<view wx:if="{{xqData.task_address}}" class="order_msg mt20">
+  	<view class="scimg_tip">师傅已到达服务地点</view>
+    <view  class="imgbox mb40">
+			<view class="addimg1" wx:for="{{filter.getgimgarrIP(xqData.task_pics)}}" 
+					 wx:for-index="idx"
+					 wx:for-item="item"
+					 wx:key="idx">
+				<image  src="{{item}}" 
+          data-src="{{item}}" 
+          data-array="{{filter.getgimgarrIP(xqData.task_pics)}}"
+          mode="aspectFill" bindtap='pveimg'></image>
+				<!-- <image  src="{{item}}" data-src="{{item}}"
+					 mode="aspectFill"></image> -->
+			</view>
+		</view>
+	</view>
+  <view wx:if="{{xqData.task_address}}" class="o_address">
+		<text class="iconfont icontubiaozhizuomoban_fuzhi"></text>
+		<view class="fz28 oh1 flex1">{{xqData.task_address}}</view>
+	</view>
+	<view class="o_tit" wx:if="{{xqData.status>1}}">
+		交易信息
+	</view>
+	<view class="o_msg" wx:if="{{xqData.status>1}}">
+		<view class="dis_flex w100 ju_b fz28 c6">
+			<view>配件</view>
+			<view>¥{{xqData.price1}}</view>
+		</view>
+		<view class="dis_flex w100 ju_b fz28 c6">
+			<view>维修费</view>
+			<view>¥{{xqData.price2}}</view>
+		</view>
+	</view>
+	<view class="w100 dis_flex ju_c" wx:if="{{xqData.status==2}}">
+		<view class="sub_btn" bindtap='sub'>确认交易信息</view>
+	</view>
+	<view class="w100 dis_flex ju_c" wx:if="{{xqData.status==4&&xqData.ispingjia==0}}">
+		<view class="sub_btn" data-url="/pages/orderpl/orderpl?o_no={{xqData.out_trade_no}}" bindtap='jump'>去评价</view>
+	</view>
+</view>
+ 
