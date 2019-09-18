@@ -1,0 +1,31 @@
+/* pages/mypl/mypl.wxss */
+.container{
+  padding-top:10rpx;
+}
+.tc_li{
+  width: 100%;
+  padding: 32rpx 22rpx;
+  box-sizing: border-box;
+  background: #fff;
+  margin-bottom: 10rpx;
+}
+.li_tit{
+  width: 100%;
+  border-left: 5rpx solid #3592E2;
+  padding-left: 15rpx;
+  box-sizing: border-box;
+  font-size:30rpx;
+  font-family:Microsoft YaHei;
+  font-weight:400;
+  color: #333;
+  line-height: 1;
+  margin-bottom: 29rpx;
+}
+.li_inr{
+  font-size:26rpx;
+  font-family:Microsoft YaHei;
+  font-weight:400;
+  color:#999999;
+  line-height:36rpx;
+  
+}

@@ -2,6 +2,8 @@
   
   "pages": [
     "pages/index/index",
+    "pages/shoucang/shoucang",
+    "pages/mypl/mypl",
     "pages/my/my",
     "pages/orderList/orderList",
     "pages/order/order",

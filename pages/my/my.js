@@ -120,13 +120,13 @@ Page({
 
   },
 	jump(e){
-    if (!wx.getStorageSync('userInfo')){
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    } else {
+    // if (!wx.getStorageSync('userInfo')){
+    //   wx.navigateTo({
+    //     url: '/pages/login/login',
+    //   })
+    // } else {
       app.jump(e)
-    }
+    // }
 	},
   call(e){
     app.call(e)

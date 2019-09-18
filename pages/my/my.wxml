@@ -12,14 +12,14 @@
 		<view wx:if="{{!userInfo.nickName}}" class="user_name"
     data-url="/pages/login/login" bindtap='jump'>点击登录</view>
 	</view>
-	<view class="my_list" data-url="/pages/orderList/orderList" bindtap="jump">
+	<view class="my_list" data-url="/pages/shoucang/shoucang" bindtap="jump">
 		<view class="list_name">
 			<text class="iconfont iconwujiaoxing1-copy"></text>
 			我的收藏
 		</view>
 		<text class="iconfont iconnext"></text>
 	</view>
-	<view class="my_list" data-url="/pages/myaddress/myaddress" bindtap="jump">
+	<view class="my_list" data-url="/pages/mypl/mypl" bindtap="jump">
 		<view class="list_name">
 			<text class="iconfont iconpinglun"></text>
 			我的评论
@@ -29,7 +29,7 @@
 	<view class="my_list" data-tel="13524650819" bindtap="call">
 		<view class="list_name">
 			<text class="iconfont iconlishi2"></text>
-			投诉电话
+			浏览历史
 		</view>
 		<text class="iconfont iconnext"></text>
 	</view>
