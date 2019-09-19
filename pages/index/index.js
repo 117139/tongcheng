@@ -38,6 +38,7 @@ Page({
         name: '最新'
       },
     ],
+    tindex:0,
 		indicatorDots: true,
 		autoplay: true,
 		interval: 3000,
@@ -78,20 +79,28 @@ Page({
 
     this.retry()
   },
+  /**
+  * 页面上拉触底事件的处理函数
+  */
+  onReachBottom: function () {
+    console.log('上拉')
+  },
+  bindcur(e) {
+    var that = this
+    console.log(e.currentTarget.dataset.type)
+    that.setData({
+      tindex: e.currentTarget.dataset.type
+    })
+    // const htmlStatus1 = htmlStatus.default(that)
+    // htmlStatus1.finish()
+    // that.getOrderList()
+    // if (that.data.goods[that.data.type].length == 0) {
+    //   that.getOrderList()
+    // }
+  },
 	jump(e){
 		app.jump(e)
 	},
-  handleChange: function (e) {
-    var that = this
-    console.log(e.detail.current)
-    that.setData({
-      currentIndex: e.detail.current
-    })
-    if (e.detail.current == that.data.tuijian.length - 1) {
-      // console.log('ajax')
-      that.getHot()
-    }
-  },
   getbanner(){
     /* "apipage": "imagelist",
           "type": 1 */
@@ -170,7 +179,6 @@ Page({
             title: '暂无分类'
           })
         } else if (res.data.list.length > 0) {                           //数据不为空
-          that.getHot()
           that.setData({
             fw_data: res.data.list
           })
@@ -197,11 +205,7 @@ Page({
       }
     })
   },
-  getHot(){
-    /*apipage=shop
-    op = indexlist
-    pageindex
-    pagesize*/
+  getlist(){
     var that = this
     const htmlStatus1 = htmlStatus.default(that)
     wx.request({
@@ -251,5 +255,10 @@ Page({
         
       }
     })
+  },
+  pveimg(e) {
+    var curr = e.currentTarget.dataset.src
+    var urls = e.currentTarget.dataset.array
+    app.pveimg(curr, urls)
   }
 })

@@ -1,0 +1,39 @@
+<!--pages/list/list.wxml-->
+<view class='container'>
+  <view class='tc_li'
+        wx:for="{{tc_type}}" 
+        wx:for-index="idx" 
+        wx:for-item="item" 
+        wx:key="idx"
+        data-url="/pages/details/details?type={{idx}}" bindtap="jump">
+        <view class='li_tit'>精装一室家具家电齐全，拎包住</view>
+        <view class='li_inr oh2'>大力推荐此房源！居家家庭入住佳选，亮点价格还能商量，包暖气，一年的物业费，电梯房楼层19层，精装修……</view>
+         <!-- data-array="{{filter.getgimgarrIP(xqData.task_pics)}}" -->
+        <scroll-view class='li_imgBox' scroll-x>
+          <image class='li_imgone'
+            wx:for="{{tc_type}}" 
+            wx:for-index="idx" 
+            wx:for-item="item" 
+            wx:key="idx" 
+            src='/static/images/baoxiu_03.png' 
+            data-src="/static/images/baoxiu_03.png"
+            mode="aspectFill" catchtap='pveimg' ></image>
+        </scroll-view>
+        <view class='li_cz'>
+          <view class='li_see'>
+            <text class='iconfont iconyanjing1'></text>
+            <text>1031</text>
+          </view>
+          
+          <view class='li_see'>
+            <text class='iconfont iconicon-collect'></text>
+            <text>1031</text>
+          </view>
+          <view class='li_see'>
+            <text class='iconfont iconliaotian'></text>
+            <text>1031</text>
+          </view>
+          <view class='li_time'>19-07-11  10:00</view>
+        </view>
+      </view>
+</view>

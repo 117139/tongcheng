@@ -1,0 +1,11 @@
+<!--pages/orderpl/orderpl.wxml-->
+<view class="container">
+	<view class="plbox">
+		<textarea name="" id="" placeholder="请输入评论" bindinput="bindTextAreaBlur"></textarea>
+		<text class="iconfont iconbianji1"></text>
+	</view>
+	
+	<view class="w100 dis_flex ju_c">
+		<view class="sub_btn" bindtap="sub">提交评价</view>
+	</view>
+</view>

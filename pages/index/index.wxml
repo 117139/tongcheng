@@ -47,14 +47,14 @@
   <view class="main">
 
     <view class="fw_box">
-      <view class="fw_one" wx:for="{{fw_data}}" wx:for-index="idx" wx:for-item="item" wx:key="idx" data-url="/pages/fuwu/fuwu?type={{idx}}" bindtap="jump">
+      <view class="fw_one" wx:for="{{fw_data}}" wx:for-index="idx" wx:for-item="item" wx:key="idx" data-url="/pages/list/list?type={{idx}}" bindtap="jump">
         <image wx:if="{{item.pic}}" src="{{filter.getgimg(item.pic)}}"></image>
         <text>{{item.name}}</text>
       </view>
     </view>
     <view class='tcmsg'>
       <text class='tctc'>同城</text>
-      <image class='tcm_img' src=''></image>
+      <image class='tcm_img' src='/static/images/index1_47.png'></image>
       <swiper class="swiper1"   
         vertical='true'
         autoplay="{{autoplay}}" 
@@ -74,20 +74,33 @@
     <view class='w100'>
       <view class='tc_tab'>
         <scroll-view class='tctab_box' scroll-x	>
-          <view class='tctabone'
+          <view class="{{tindex==idx? 'tctabone cur':'tctabone'}}"
           wx:for="{{tc_type}}" 
           wx:for-index="idx" 
           wx:for-item="item" 
-          wx:key="idx">最新</view>
+          wx:key="idx"
+          data-type="{{idx}}" bindtap='bindcur'>最新</view>
         </scroll-view>
       </view>
       <view class='tc_li'
         wx:for="{{tc_type}}" 
         wx:for-index="idx" 
         wx:for-item="item" 
-        wx:key="idx">
+        wx:key="idx"
+        data-url="/pages/details/details?type={{idx}}" bindtap="jump">
         <view class='li_tit'>精装一室家具家电齐全，拎包住</view>
         <view class='li_inr oh2'>大力推荐此房源！居家家庭入住佳选，亮点价格还能商量，包暖气，一年的物业费，电梯房楼层19层，精装修……</view>
+         <!-- data-array="{{filter.getgimgarrIP(xqData.task_pics)}}" -->
+        <scroll-view class='li_imgBox' scroll-x>
+          <image class='li_imgone'
+            wx:for="{{tc_type}}" 
+            wx:for-index="idx" 
+            wx:for-item="item" 
+            wx:key="idx" 
+            src='/static/images/baoxiu_03.png' 
+            data-src="/static/images/baoxiu_03.png"
+            mode="aspectFill" catchtap='pveimg' ></image>
+        </scroll-view>
         <view class='li_cz'>
           <view class='li_see'>
             <text class='iconfont iconyanjing1'></text>

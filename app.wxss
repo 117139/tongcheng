@@ -398,3 +398,72 @@ page{
 	font-size: 28rpx;
 	color: #999;
 }
+/*li*/
+
+
+.tc_li{
+  width: 100%;
+  padding: 32rpx 22rpx;
+  box-sizing: border-box;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+.li_tit{
+  width: 100%;
+  border-left: 5rpx solid #3592E2;
+  padding-left: 15rpx;
+  box-sizing: border-box;
+  font-size:30rpx;
+  font-family:Microsoft YaHei;
+  font-weight:400;
+  color: #333;
+  line-height: 1;
+  margin-bottom: 29rpx;
+}
+.li_inr{
+  font-size:26rpx;
+  font-family:Microsoft YaHei;
+  font-weight:400;
+  color:#999999;
+  line-height:36rpx;
+  margin-bottom: 18rpx;
+  
+}
+.li_cz{
+  margin-top: 18rpx;
+  display: flex;
+}
+.li_see{
+  width: 160rpx;
+  font-size:26rpx;
+  font-family:Microsoft YaHei;
+  font-weight:400;
+  color:#999999;
+  display: flex;
+  align-items: center;
+}
+.li_see .iconfont{
+  font-size:30rpx;
+  margin-right: 10rpx;
+}
+.li_time{
+  flex: 1;
+  text-align: right;
+  font-size:26rpx;
+  font-family:Microsoft YaHei;
+  font-weight:400;
+  color:#999;
+}
+.li_imgBox{
+  width: 100%;
+  height:142rpx;
+  display: flex;
+  white-space: nowrap;
+}
+.li_imgone{
+  display: inline-flex;
+  width:222rpx;
+  height:142rpx;
+  /* margin: 0 6rpx; */
+  margin-right: 12rpx;
+}

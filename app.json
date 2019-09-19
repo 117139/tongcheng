@@ -1,23 +1,15 @@
 {
   
   "pages": [
+    "pages/my/my",
     "pages/index/index",
+    "pages/details/details",
+    "pages/list/list",
     "pages/shoucang/shoucang",
     "pages/mypl/mypl",
-    "pages/my/my",
-    "pages/orderList/orderList",
-    "pages/order/order",
-		"pages/myaddress/myaddress",
-		"pages/addAdd/addAdd",
-    "pages/order1/order",
-    "pages/orderpl/orderpl",
-    "pages/baoxiu/baoxiu",
-    "pages/mymsg/mymsg",
-    "pages/order_xq/order_xq",
-    "pages/details/details",
-		"pages/addressEdit/addressEdit",
+    "pages/lishi/lishi",
     "pages/index1/index",
-    "pages/fuwu/fuwu",
+    "pages/gopl/gopl",
     "pages/login/login",
     "pages/logs/logs"
   ],
@@ -26,32 +18,8 @@
     "backgroundColor": "#eee",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "上门维修",
+    "navigationBarTitleText": "同城",
     "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "color": "#333333",
-    "selectedColor": "#388df1",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "/static/images/index1_53.png",
-        "selectedIconPath": "/static/images/index_53.png"
-      },
-      {
-        "pagePath": "pages/order/order",
-        "text": "下单",
-        "iconPath": "/static/images/index_55.png",
-        "selectedIconPath": "/static/images/index1_55.png"
-      },
-      {
-        "pagePath": "pages/baoxiu/baoxiu",
-        "text": "保修",
-        "iconPath": "/static/images/index_58.png",
-        "selectedIconPath": "/static/images/index1_58.png"
-      }
-    ]
   },
   "sitemapLocation": "sitemap.json"
 }

@@ -11,16 +11,16 @@ page{
 }
 .header{
 	width: 100%;
-	height: 306rpx;
+	height: 280rpx;
 	position: relative;
-	margin-bottom: 25rpx;
+	margin-bottom: 20rpx;
 }
 .mybg{
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 306rpx;
+	height: 280rpx;
 	z-index: 1;
 }
 .iconshezhi{
@@ -33,10 +33,10 @@ page{
 }
 .tx_box {
 	position: absolute;
-	top: 39rpx;
+	top: 62rpx;
 	left: 310rpx;
-	width: 130rpx;
-	height: 130rpx;
+	width: 128rpx;
+	height: 128rpx;
 	border: solid 2px #ffffff;
 	z-index: 5;
 	border-radius: 50%;
@@ -49,7 +49,7 @@ page{
 .user_name{
 	position: absolute;
 	z-index: 5;
-	top: 190rpx;
+	top: 206rpx;
 	width: 100%;
 	text-align: center;
 	font-size: 36rpx;

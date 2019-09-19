@@ -1,0 +1,14 @@
+<!--pages/lishi/lishi.wxml-->
+<view class='container'>
+  <view class='tc_li'
+        wx:for="{{tc_type}}" 
+        wx:for-index="idx" 
+        wx:for-item="item" 
+        wx:key="idx"
+        data-url="/pages/details/details"
+        bindtap='jump'>
+        <view class='li_tit'>大众 帕萨特 2016款</view>
+        <view class='li_inr oh2'>19-07-21  10:00</view>
+        
+      </view>
+</view>

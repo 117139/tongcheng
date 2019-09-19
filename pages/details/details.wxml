@@ -4,174 +4,93 @@
 <wxs src="../../utils/filter.wxs" module="filter" />
 	<template is="htmlStatus" data="{{...htmlStatus}}" />
 <view  wx:if="{{xqData}}" class="container pb160">
-
-	<view class="banner">
-	<!-- 	<text>房屋电路维修</text>
-		<image src="../../static/images/xq_03.png"></image> -->
-		<swiper class="swiper" indicator-dots="true" circular='true'>
-			<block wx:for="{{bannerimg}}" wx:for-index="idx" wx:for-item="item" wx:key="idx">
-				<swiper-item class="swiper_item">
-					<!-- <image wx:if="{{item.pic}}" lazy-load='true' src="{{filter.imgIP(item.pic)}}" class="slide-image"/> -->
-					<image wx:if="{{item}}" lazy-load='true' src="{{item}}" class="slide-image" />
-		
-				</swiper-item>
-			</block>
-		</swiper>
-	</view>
-	<view class="xq_titi">
-		<view class="fz28 c9">{{xqData.name}}，师傅上门服务</view>
-		<view class="dis_flex ju_b">
-			<view class="fz24 c6">
-				<text class="mr5">热度:</text>
-				<text class="iconfont iconredu"></text>
-				<text wx:for="{{xqData.sellnum}}"wx:for-index="idx" 
-					wx:for-item="item" 
-					wx:key="idx" wx:if="{{idx>10&&idx<15}}" class="iconfont iconredu"></text>
-			</view>
-			<view class="fz24 c9">{{xqData.sellnum}}人预约</view>
-		</view>
-	</view>
-	<view class="xq_msg">
-		<view class="xq_header">
-			<view class="hx1"></view>
-			<view class="xq_msg_name">材料配件</view>
-			<view class="hx1"></view>
-		</view>
-    <view class='w100'>
-		  <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+  <image lazy-load='true' src="{{filter.imgIP(bannerimg[0])}}" class="bannerimg" />  
+  <!-- <swiper class="swiper" 
+    indicator-dots="{{indicatorDots}}" 
+    autoplay="{{autoplay}}" 
+    interval="{{interval}}" 
+    duration="{{duration}}"
+    indicator-active-color='#fff' 
+    circular="{{circular}}">
+    <block wx:for="{{bannerimg}}" 
+      wx:for-index="idx" 
+      wx:for-item="item" 
+      wx:key="idx">
+      <swiper-item class="swiper_item">
+        <image wx:if="{{item}}" lazy-load='true' src="{{filter.imgIP(item)}}" class="slide-image" />
+      </swiper-item>
+    </block>
+  </swiper> -->
+  <view class='tc_li'>
+    <view class='li_tit'>精装一室家具家电齐全，拎包住</view>
+    <view class='li_inr oh2'>大力推荐此房源！居家家庭入住佳选，亮点价格还能商量，包暖气，一年的物业费，修……</view>
+    <!-- data-array="{{filter.getgimgarrIP(xqData.task_pics)}}" -->
+    
+    <view class='li_cz'>
+      <view class='li_see'>
+        <text class='iconfont iconyanjing1'></text>
+        <text>1031</text>
+      </view>
+      
+      <view class='li_see'>
+        <text class='iconfont iconicon-collect'></text>
+        <text>1031</text>
+      </view>
+      <view class='li_see'>
+        <text class='iconfont iconliaotian'></text>
+        <text>1031</text>
+      </view>
+      <view class='li_time'>19-07-11  10:00</view>
     </view>
-		<!-- <view class="w100 table">
-			 <view class="w100 tr">
-				 <view class="td th td1">房屋电路维修</view>
-				 <view class="td th td2">材料价格</view>
-				 <view class="td th td3">人工费</view>
-			 </view>
-			 <view class="w100 tr">
-				 <view class="td td1">开关更换</view>
-				 <view class="td td2">20元/个</view>
-				 <view class="td td3">50元/起</view>
-			 </view>
-			 <view class="w100 tr">
-				 <view class="td td1">空气开关拆换维修</view>
-				 <view class="td td2">25元/个</view>
-				 <view class="td td3">40元/起</view>
-			 </view>
-			 <view class="w100 tr">
-				 <view class="td td1">地插更换维修</view>
-				 <view class="td td2">25元/个</view>
-				 <view class="td td3">40元/起</view>
-			 </view>
-			 <view class="w100 tr">
-				 <view class="td td1">开关更换</view>
-				 <view class="td td2">20元/个</view>
-				 <view class="td td3">50元/起</view>
-			 </view>
-			 <view class="w100 tr">
-				 <view class="td td1">开关更换</view>
-				 <view class="td td2">20元/个</view>
-				 <view class="td td3">50元/起</view>
-			 </view>
-		</view> -->
-		<view class="table_tip">温馨提示:材料配件用户可自备</view>
-	</view>
-	<view class="xq_msg">
-		<view class="xq_header">
-			<view class="hx1"></view>
-			<view class="xq_msg_name">服务流程</view>
-			<view class="hx1"></view>
-		</view>
-		<view class="w100">
-			<view class="dis_flex ju_b mb37">
-				<view class="msg1_one">
-					<image src="../../static/images/xqmsg_10.jpg"></image>
-					<view class="msg1_msg">
-						<view class="m_v1">在线预约</view>
-						<view>选择您需要的</view>
-						<view>服务，点击预约</view>
-					</view>
-				</view>
-				<view class="msg1_one">
-					<image src="../../static/images/xqmsg_10.jpg"></image>
-					<view class="msg1_msg">
-						<view class="m_v1">双方沟通</view>
-						<view>选择您需要的</view>
-						<view>服务，点击预约</view>
-					</view>
-				</view>
-				<view class="msg1_one">
-					<image src="../../static/images/xqmsg_14.jpg"></image>
-					<view class="msg1_msg">
-						<view class="m_v1">师傅上门</view>
-						<view>师傅根据您的</view>
-						<view>期望上门时间，</view>
-						<view>上门服务</view>
-					</view>
-				</view>
-			</view>
-			<view class="dis_flex ju_b mb37">
-				<view class="msg1_one">
-					<image src="../../static/images/xqmsg_10.jpg"></image>
-					<view class="msg1_msg">
-						<view class="m_v1">进行维修</view>
-						<view class="c9">师傅进入现场</view>
-						<view class="c9">按照行业规范进行</view>
-						<view class="c9">标准作业</view>
-					</view>
-				</view>
-				<view class="msg1_one">
-					<image src="../../static/images/xqmsg_10.jpg"></image>
-					<view class="msg1_msg">
-						<view class="m_v1">结果确认</view>
-						<view class="c9">请您对服务结果</view>
-						<view class="c9">进行验收确认</view>
-					</view>
-				</view>
-				<view class="msg1_one">
-					<image src="../../static/images/xqmsg_14.jpg"></image>
-					<view class="msg1_msg">
-						<view class="m_v1">维修评价</view>
-						<view class="c9">确认订单完成</view>
-						<view class="c9">请对师傅服务</view>
-						<view class="c9">进行评价</view>
-					</view>
-				</view>
-			</view>
-			<!-- <image lazy-load="true" class="fwlc" src="../../static/images/xq_10.jpg"></image> -->
-		</view>
-	</view>
-	<view class="xq_msg">
-		<view class="xq_header">
-			<view class="hx1"></view>
-			<view class="xq_msg_name">服务保障</view>
-			<view class="hx1"></view>
-		</view>
-		<view class="w100 ">
-			<view class="dis_flex ju_a">
-				<view class="bzone">
-					<image src="../../static/images/xqmsg_26.jpg"></image>
-					<view class="bztiti">专业服务</view>
-					<view class="fz22 c9">师傅经专业训练</view>
-					<view class="fz22 c9">考核通过后上岗</view>
-				</view>
-				<view class="bzone">
-					<image src="../../static/images/xqmsg_29.jpg"></image>
-					<view class="bztiti">标准价格</view>
-					<view class="fz22 c9">价格公开透明</view>
-					<view class="fz22 c9">统一收费标准</view>
-				</view>
-				<view class="bzone">
-					<image src="../../static/images/xqmsg_32.jpg"></image>
-					<view class="bztiti">专业服务</view>
-					<view class="fz22 c9">针对非人为引发</view>
-					<view class="fz22 c9">的售后问题</view>
-				</view>
-			</view>
-			<!-- <image lazy-load="true" class="fwbz" src="../../static/images/xq_13.jpg"></image> -->
-		</view>
-	</view>  
-	 <view class="caoz_bot">
-		 <view class="lxkf_btn" bindtap='call'>联系客服</view>
-		 <view class="yy_btn" bindtap="yyfuc">立即预约</view>
-	 </view>
+  </view>
+  <view class='xq_msg'>
+    <view>轿车品牌：其它</view>
+    <view>上牌年份：2015年</view>
+    <view>行驶里程：3万公里</view>
+    <view>价格：12.50万元</view>
+    <view>新旧程度：8成新</view>
+    <view>来源：个人</view>
+    <view>地址：其他</view>
+    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    <scroll-view class='li_imgBox' scroll-x>
+    <image class='li_imgone'
+      wx:for="{{tc_type}}" 
+      wx:for-index="idx" 
+      wx:for-item="item" 
+      wx:key="idx" 
+      src='/static/images/baoxiu_03.png' 
+      data-src="/static/images/baoxiu_03.png"
+      mode="aspectFill" catchtap='pveimg' ></image>
+  </scroll-view>
+  </view>
+  <view class='lxtel'>
+    <text class='fz30 c3'>联系人：苏明春</text>
+    <view class='telbtn' data-tel="123456487" bindtap='call'>
+      <text class='iconfont icondianhua'></text> <text>拨打电话</text>
+    </view>
+  </view>
+  <view class='xq_pl'>
+    <view class='pl_tit'>
+      <view class='fz30 c3'>全部评论 <text class='ceb2f16'>（300）</text></view>
+      <view class='plbtn' data-url="/pages/gopl/gopl" bindtap="jump">评论</view>
+    </view>
+    <view class='pl_list'
+      wx:for="{{tc_type}}" 
+      wx:for-index="idx" 
+      wx:for-item="item" 
+      wx:key="idx">
+      <image class='li_tx' src='/static/images/tx.png'></image>
+      <view class='li_inr'>
+        <view class='li_msg1'>
+          <view class='limsg1_l'>
+            <text class='fz30 c3'>小仙女</text>
+            <text class='fz26 c9'>2019-07-21</text>
+          </view>
+          <view class='fz26 ceb2f16'>删除</view>
+        </view>
+        <view class='li_msg2'>这个还不错！</view>
+      </view>
+    </view>
+  </view>
 </view>
 

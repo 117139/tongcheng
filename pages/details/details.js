@@ -12,7 +12,38 @@ Page({
     goods_id:0,
     xqData:{},
 		bannerimg: [],
-    kefu:''
+    kefu:'',
+    indicatorDots: true,
+    autoplay: true,
+    interval: 3000,
+    duration: 1000,
+    circular: true,
+    tc_type: [
+      {
+        name: '最新'
+      },
+      {
+        name: '最新'
+      },
+      {
+        name: '最新'
+      },
+      {
+        name: '最新'
+      },
+      {
+        name: '最新'
+      },
+      {
+        name: '最新'
+      },
+      {
+        name: '最新'
+      },
+      {
+        name: '最新'
+      },
+    ],
   },
 
   /**
@@ -42,9 +73,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getbanner()
   },
-
+  retry: function () {
+    this.getbanner()
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -78,6 +111,58 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  getbanner() {
+    /* "apipage": "imagelist",
+          "type": 1 */
+    var that = this
+    wx.request({
+      url: app.IPurl,
+      data: {
+        apipage: "imagelist",
+        type: 1
+        // tokenstr:wx.getStorageSync('token')
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      method: 'get',
+      success(res) {
+        console.log(res.data)
+        if (res.data.datalist.length == 0) {  //数据为空
+          htmlStatus1.dataNull()    // 切换为空数据状态
+          wx.showToast({
+            icon: 'none',
+            title: '暂无banner'
+          })
+        } else if (res.data.datalist.length > 0) {                           //数据不为空
+          that.data.bannerimg = []
+          for (var i = 0; i < res.data.datalist.length; i++) {
+            that.data.bannerimg.push(res.data.datalist[i].Image1)
+          }
+          that.setData({
+            bannerimg: that.data.bannerimg
+          })
+
+        } else {
+          wx.showToast({
+            icon: 'none',
+            title: '加载失败'
+          })
+
+        }
+      },
+      fail() {
+        wx.showToast({
+          icon: 'none',
+          title: '加载失败'
+        })
+
+      },
+      complete() {
+      }
+    })
   },
   getDetails(id) {
     var that = this
@@ -155,10 +240,19 @@ Page({
       url: '/pages/order1/order?id=' + xqData.id + '&groupid=' + xqData.groupid
 		})
 	},
-  call(){
+	jump(e){
+		app.jump(e)
+	},
+  call(e){
     var that=this
+    console.log(e)
     wx.makePhoneCall({
-      phoneNumber: that.data.kefu.str1
+      phoneNumber: e.currentTarget.dataset.tel
     })
+  },
+  pveimg(e) {
+    var curr = e.currentTarget.dataset.src
+    var urls = e.currentTarget.dataset.array
+    app.pveimg(curr, urls)
   }
 })
