@@ -124,3 +124,17 @@
   color:rgba(51,51,51,1);
   line-height:40rpx;
 }
+.li_tit{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 0;
+  padding-left: 0;
+}
+.li_tit_t{
+  border-left:5rpx solid #3592E2;
+  padding-left:15rpx;
+}
+.li_tit .iconfont{
+  font-size: 40rpx;
+}

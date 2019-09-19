@@ -22,7 +22,10 @@
     </block>
   </swiper> -->
   <view class='tc_li'>
-    <view class='li_tit'>精装一室家具家电齐全，拎包住</view>
+    <view class='li_tit'>
+      <text class='li_tit_t'>精装一室家具家电齐全，拎包住</text>
+      <text bindtap='scbtn' class="iconfont {{sc==1? 'iconwujiaoxing ceb2f16':'iconwujiaoxing1-copy'}}"></text>
+    </view>
     <view class='li_inr oh2'>大力推荐此房源！居家家庭入住佳选，亮点价格还能商量，包暖气，一年的物业费，修……</view>
     <!-- data-array="{{filter.getgimgarrIP(xqData.task_pics)}}" -->
     

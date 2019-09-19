@@ -44,6 +44,7 @@ Page({
         name: '最新'
       },
     ],
+    sc:0
   },
 
   /**
@@ -111,6 +112,13 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  scbtn(e){
+    var that =this
+    console.log(e.currentTarget.dataset)
+    that.setData({
+      sc:!that.data.sc
+    })
   },
   getbanner() {
     /* "apipage": "imagelist",
