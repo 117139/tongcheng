@@ -6,38 +6,13 @@ const app = getApp()
 Page({
 	data: {
 		bannerimg: [],
-		fw_data: [],
-    currentIndex:'',
+    statistics:'',
+    cate:'',
+    issue_top:'',
+    notice:'',
+    tablist:'',
+    datalist:[],
     page:1,
-		hot_data: [],
-		cai_data:[
-		],
-    tc_type: [
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-    ],
     tindex:0,
 		indicatorDots: true,
 		autoplay: true,
@@ -53,7 +28,7 @@ Page({
 	},
 	onLoad: function() {
     this.getbanner()
-    this.gettype()
+    // this.gettype()
 	},
   retry() {
     wx.setNavigationBarTitle({
@@ -62,10 +37,10 @@ Page({
       fail: function (res) { },
       complete: function (res) { },
     })
-    // wx.showToast({
-    //   icon: 'none',
-    //   title: '调用重试方法'
-    // })
+    this.setData({
+      page:1,
+      datalist:[]
+    })
     if (getCurrentPages().length != 0) {
       getCurrentPages()[getCurrentPages().length - 1].onLoad()
       getCurrentPages()[getCurrentPages().length - 1].onShow()
@@ -83,14 +58,21 @@ Page({
   * 页面上拉触底事件的处理函数
   */
   onReachBottom: function () {
+    var that =this
     console.log('上拉')
+    that.getdatalist(that.data.cur_id)
   },
   bindcur(e) {
     var that = this
-    console.log(e.currentTarget.dataset.type)
-    that.setData({
-      tindex: e.currentTarget.dataset.type
-    })
+    console.log(e.currentTarget.dataset.idx)
+    if (e.currentTarget.dataset.idx != that.data.tindex){
+      that.setData({
+        tindex: e.currentTarget.dataset.idx,
+        cur_id: e.currentTarget.dataset.id,
+        page:1
+      })
+      that.getdatalist(e.currentTarget.dataset.id)
+    }
     // const htmlStatus1 = htmlStatus.default(that)
     // htmlStatus1.finish()
     // that.getOrderList()
@@ -102,39 +84,44 @@ Page({
 		app.jump(e)
 	},
   getbanner(){
-    /* "apipage": "imagelist",
-          "type": 1 */
-    var that =this
+    var that = this
+    const htmlStatus1 = htmlStatus.default(that)
     wx.request({
-      url: app.IPurl,
+      url: app.IPurl +'/api/index/index',
       data: {
-        apipage: "imagelist",
-        type: 1
-        // tokenstr:wx.getStorageSync('token')
+       
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       dataType: 'json',
-      method: 'get',
+      method: 'post',
       success(res) {
+        htmlStatus1.finish()
         console.log(res.data)
-        if (res.data.datalist.length == 0) {  //数据为空
-          htmlStatus1.dataNull()    // 切换为空数据状态
-          wx.showToast({
-            icon: 'none',
-            title: '暂无banner'
-          })
-        } else if (res.data.datalist.length > 0) {                           //数据不为空
-          that.data.bannerimg=[]
-          for (var i = 0; i < res.data.datalist.length; i++) {
-            that.data.bannerimg.push(res.data.datalist[i].Image1)
-          }
+        if (res.data.code == 1) {  //数据为空
+        var tablist=[{
+          id:'',
+          title:'最新'
+        }]
+          tablist = tablist.concat(res.data.data.cate)
           that.setData({
-            bannerimg: that.data.bannerimg
+            bannerimg: res.data.data.ad,
+            statistics: res.data.data.statistics,
+            cate: res.data.data.cate,
+            issue_top: res.data.data.issue_top,
+            notice: res.data.data.notice,
+            tablist: tablist
           })
-         
-        } else {
+          if (res.data.issue.data.length>0){
+            that.data.page++
+            that.setData({
+              page: that.data.page,
+              datalist: res.data.issue.data,
+            })
+          }
+        }else {
+          htmlStatus1.error()
           wx.showToast({
             icon: 'none',
             title: '加载失败'
@@ -143,6 +130,7 @@ Page({
         }
       },
       fail() {
+        htmlStatus1.error()
         wx.showToast({
           icon: 'none',
           title: '加载失败'
@@ -150,44 +138,69 @@ Page({
         
       },
       complete() {
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
       }
     })
   },
-  gettype() {
+  getdatalist(id) {
     var that = this
     const htmlStatus1 = htmlStatus.default(that)
     wx.request({
-      url: app.IPurl,
+      url: app.IPurl +'/api/index/index',
       data: {
-        apipage: "shop",
-        op: "grouplist",
-        // tokenstr:wx.getStorageSync('token')
+        cate_id: id,
+        page: that.data.page,
+        token:wx.getStorageSync('token')
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       dataType: 'json',
-      method: 'get',
+      method: 'post',
       success(res) {
         // 停止下拉动作
         wx.stopPullDownRefresh();
         console.log(res.data)
-        if (res.data.list.length == 0) {  //数据为空
-          htmlStatus1.dataNull()    // 切换为空数据状态
-          wx.showToast({
-            icon: 'none',
-            title: '暂无分类'
-          })
-        } else if (res.data.list.length > 0) {                           //数据不为空
+        if (res.data.code == 1) {  //数据为空
+          if (that.data.page == 1 && res.data.issue.data.length==0){
+            that.setData({
+              datalist:[]
+            })
+            htmlStatus1.dataNull()    // 切换为空数据状态
+            return
+          }
+          htmlStatus1.finish()
+          if (res.data.issue.data.length == 0){
+            wx.showToast({
+              icon:'none',
+              title: '到底了'
+            })
+            return
+          }
+          
+          if (that.data.page == 1){
+            that.data.datalist = res.data.issue.data
+          }else{
+            that.data.datalist = that.data.datalist.concat(res.data.issue.data)
+          }
+          that.data.page++
           that.setData({
-            fw_data: res.data.list
+            page:that.data.page,
+            datalist: that.data.datalist,
           })
-          htmlStatus1.finish()    // 切换为finish状态
-        } else {
-          wx.showToast({
-            icon: 'none',
-            title: '加载失败'
-          })
+        }else {
+          if (res.data.msg) {
+            wx.showToast({
+              icon: 'none',
+              title: res.data.msg
+            })
+          } else {
+            wx.showToast({
+              icon: 'none',
+              title: '加载失败'
+            })
+          }
           htmlStatus1.error()    // 切换为error状态
         }
       },
@@ -200,62 +213,12 @@ Page({
       },
       complete() {
         wx.setNavigationBarTitle({
-          title: '首页',
+          title: '阿尔拉同城信息',
         })
       }
     })
   },
-  getlist(){
-    var that = this
-    const htmlStatus1 = htmlStatus.default(that)
-    wx.request({
-      url: app.IPurl,
-      data: {
-        apipage: "shop",
-        op: "indexlist",
-        pageindex: that.data.page,
-        pagesize:10,
-        // tokenstr:wx.getStorageSync('token')
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      dataType: 'json',
-      method: 'get',
-      success(res) {
-        console.log(res.data)
-        that.setData({
-          cai_data:res.data.list3
-        })
-        if (res.data.list1.length == 0) {  //数据为空
-          htmlStatus1.dataNull()    // 切换为空数据状态
-          wx.showToast({
-            icon: 'none',
-            title: '暂无热门服务'
-          })
-        } else if (res.data.list1.length > 0) {                           //数据不为空
-          that.data.hot_data = that.data.hot_data.concat(res.data.list1)
-          that.setData({
-            hot_data: that.data.hot_data
-          })
-        } else {
-          wx.showToast({
-            icon: 'none',
-            title: '加载失败'
-          })
-        }
-      },
-      fail() {
-        wx.showToast({
-          icon: 'none',
-          title: '加载失败'
-        })
-      },
-      complete() {
-        
-      }
-    })
-  },
+  
   pveimg(e) {
     var curr = e.currentTarget.dataset.src
     var urls = e.currentTarget.dataset.array

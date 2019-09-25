@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    issue_id:'',
 		content:'',
 		fw:0,
 		zy:0,
@@ -17,9 +18,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.o_no){
+    if (options.issue_id){
       this.setData({
-        o_no: options.o_no
+        issue_id: options.issue_id
       })
     }
   },
@@ -56,7 +57,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    // 停止下拉动作
+    wx.stopPullDownRefresh();
   },
 
   /**
@@ -73,26 +75,11 @@ Page({
 
   },
 	bindTextAreaBlur: function(e) {
-    console.log(e.detail.value)
+    // console.log(e.detail.value)
 		this.setData({
 			content:e.detail.value
 		})
   },
-	pl(e){
-		var that =this
-		console.log(e)
-		var type=e.currentTarget.dataset.type
-		var fs=e.currentTarget.dataset.fs
-		if(type==1){
-			that.setData({
-				fw:e.currentTarget.dataset.fs
-			})
-		}else{
-			that.setData({
-				zy:e.currentTarget.dataset.fs
-			})
-		}
-	},
 	sub(){
 		var that =this
 		console.log(that.data.content)
@@ -109,16 +96,11 @@ Page({
 		}
 	
 		wx.request({
-			url:  app.IPurl,
+      url: app.IPurl +'/api/comment/save',
 			data:{
-        apipage: 'smwx',
-        op:'pingjia',
-        out_trade_no: that.data.o_no,
-        description: that.data.content,
-        isn:0,        // 0不匿名, 1匿名
-        p1: that.data.fw,//(1 - 5)
-        p2: that.data.zy,//(1- 5)
-        "tokenstr": wx.getStorageSync('tokenstr').tokenstr
+        content: that.data.content,
+        issue_id:that.data.issue_id,
+        "token": wx.getStorageSync('token')
 			},
 			header: {
 				'content-type': 'application/x-www-form-urlencoded' 
@@ -127,24 +109,27 @@ Page({
 			method:'post',
 			success(res) {
 				console.log(res.data)
-				if(res.data.error==0){
+				if(res.data.code==1){
           wx.showToast({
             icon: 'none',
             title: '提交成功'
           })
           setTimeout(function(){
-            // wx.redirectTo({
-            //   url: '/pages/orderList/orderList'
-            // })
-            wx.navigateBack({
-              delta: 2
-            })
+           
+            wx.navigateBack()
           },1000)
 				}else{
-					wx.showToast({
-						icon:'none',
-						title:'操作失败'
-					})
+          if (res.data.msg){
+            wx.showToast({
+              icon: 'none',
+              title: msg
+            })
+          }else{
+            wx.showToast({
+              icon: 'none',
+              title: '操作失败'
+            })
+          }
 				}
 				
 			},

@@ -1,14 +1,20 @@
 <!--pages/shoucang/shoucang.wxml-->
+<import src="/utils/htmlStatus/index.wxml" />
 <view class='container'>
   <view class='tc_li'
-        wx:for="{{tc_type}}" 
-        wx:for-index="idx" 
-        wx:for-item="item" 
-        wx:key="idx"
-        data-url="/pages/details/details"
-        bindtap='jump'>
-        <view class='li_tit'>大众 帕萨特 2016款</view>
-        <view class='li_inr oh2'>19-07-21  10:00</view>
-        
-      </view>
+    wx:for="{{datalist}}" 
+    wx:for-index="idx" 
+    wx:for-item="item" 
+    wx:key="idx"
+    data-url="/pages/details/details?cate_id={{item.cate_id}}&id={{item.id}}"
+    bindtap='jump'>
+    <view class='li_tit'>
+    <text class='li_name oh1'>{{item.title}}</text>
+        <text catchtap='delpl' data-id='{{item.id}}' class="iconfont iconwujiaoxing"></text>
+    </view>
+    <view class='li_inr oh2'>{{item.create_time}}</view>
+    
+  </view>
 </view>
+
+<template is="htmlStatus" data="{{...htmlStatus}}" />

@@ -1,11 +1,11 @@
 <!--index.wxml-->
 <import src="/utils/htmlStatus/index.wxml" />
 <wxs src="../../utils/filter.wxs" module="filter" />
-<template is="htmlStatus" data="{{...htmlStatus}}" />
-<view wx:if="{{fw_data.length!=0}}" class="container">
+
+<view wx:if="{{cate}}" class="container">
   <view class='zzgg'>
     <text class='iconfont iconxiaolaba'></text>
-    <text>站长公告: 刚刚发布一条新的求职信息，快去看看吧</text>
+    <text class='oh1'>站长公告: {{notice[0].content}}</text>
   </view>
   <view class='w100 swiper_box'>
     <view class='gomy' data-url="/pages/my/my" bindtap="jump">
@@ -24,7 +24,7 @@
         wx:for-item="item" 
         wx:key="idx">
         <swiper-item class="swiper_item">
-          <image wx:if="{{item}}" lazy-load='true' src="{{filter.imgIP(item)}}" class="slide-image" />
+          <image wx:if="{{item}}" lazy-load='true' src="{{filter.imgIP(item.pic)}}" class="slide-image" />
 
         </swiper-item>
       </block>
@@ -33,23 +33,23 @@
   <view class='w100 imsg'>
     <view>
       <text>总浏览量：</text>
-      <text class='imsg_v'>23.6万</text>
+      <text class='imsg_v'>{{statistics.browse_num}}</text>
     </view>
     <view>
       <text> 发布：</text>
-      <text class='imsg_v'>1.2万</text>
+      <text class='imsg_v'>{{statistics.issue_num}}</text>
     </view>
     <view>
       <text>用户：</text>
-      <text class='imsg_v'>9106</text>
+      <text class='imsg_v'>{{statistics.user_num}}</text>
     </view>
   </view>
   <view class="main">
 
     <view class="fw_box">
-      <view class="fw_one" wx:for="{{fw_data}}" wx:for-index="idx" wx:for-item="item" wx:key="idx" data-url="/pages/list/list?type={{idx}}" bindtap="jump">
-        <image wx:if="{{item.pic}}" src="{{filter.getgimg(item.pic)}}"></image>
-        <text>{{item.name}}</text>
+      <view class="fw_one" wx:for="{{cate}}" wx:for-index="idx" wx:for-item="item" wx:key="idx" data-url="/pages/list/list?cate_id={{item.id}}" bindtap="jump">
+        <image wx:if="{{item.icon}}" lazy-load='true' src="{{filter.imgIP(item.icon)}}"></image>
+        <text>{{item.title}}</text>
       </view>
     </view>
     <view class='tcmsg'>
@@ -61,12 +61,14 @@
         interval="{{interval}}" 
         duration="{{duration}}" 
         circular="{{circular}}">
-        <block wx:for="{{bannerimg}}" 
+        <block wx:for="{{issue_top}}" 
           wx:for-index="idx" 
           wx:for-item="item" 
           wx:key="idx">
           <swiper-item class="swiper_item">
-           <text class='swi_tc oh1'>【北京艾诗缇服饰】高薪招聘导购店助</text>
+           <text class='swi_tc oh1' 
+            data-url="/pages/details/details?id={{item.id}}&cate_id={{item.cate_id}}" 
+            bindtap="jump">{{item.title}}</text>
           </swiper-item>
         </block>
       </swiper>
@@ -75,49 +77,52 @@
       <view class='tc_tab'>
         <scroll-view class='tctab_box' scroll-x	>
           <view class="{{tindex==idx? 'tctabone cur':'tctabone'}}"
-          wx:for="{{tc_type}}" 
+          wx:for="{{tablist}}" 
           wx:for-index="idx" 
           wx:for-item="item" 
           wx:key="idx"
-          data-type="{{idx}}" bindtap='bindcur'>最新</view>
+          data-idx="{{idx}}"
+          data-id="{{item.id}}" bindtap='bindcur'>{{item.title}}</view>
         </scroll-view>
       </view>
       <view class='tc_li'
-        wx:for="{{tc_type}}" 
+        wx:for="{{datalist}}" 
         wx:for-index="idx" 
         wx:for-item="item" 
         wx:key="idx"
-        data-url="/pages/details/details?type={{idx}}" bindtap="jump">
-        <view class='li_tit'>精装一室家具家电齐全，拎包住</view>
-        <view class='li_inr oh2'>大力推荐此房源！居家家庭入住佳选，亮点价格还能商量，包暖气，一年的物业费，电梯房楼层19层，精装修……</view>
+        data-url="/pages/details/details?id={{item.id}}&cate_id={{item.cate_id}}" bindtap="jump">
+        <view class='li_tit'>{{item.title}}</view>
+        <view wx:if="{{item.description}}" class='li_inr oh2'>{{item.description}}</view>
          <!-- data-array="{{filter.getgimgarrIP(xqData.task_pics)}}" -->
-        <scroll-view class='li_imgBox' scroll-x>
+        <scroll-view wx:if="{{item.pic}}" class='li_imgBox' scroll-x>
           <image class='li_imgone'
-            wx:for="{{tc_type}}" 
+            wx:for="{{filter.getgimgarr(item.pic)}}" 
             wx:for-index="idx" 
-            wx:for-item="item" 
+            wx:for-item="item1" 
             wx:key="idx" 
-            src='/static/images/baoxiu_03.png' 
-            data-src="/static/images/baoxiu_03.png"
+            src='{{filter.imgIP(item1)}}' 
+            data-src="{{filter.imgIP(item1)}}"
+            data-array="{{filter.getgimgarrIP(item.pic)}}"
             mode="aspectFill" catchtap='pveimg' ></image>
         </scroll-view>
         <view class='li_cz'>
           <view class='li_see'>
             <text class='iconfont iconyanjing1'></text>
-            <text>1031</text>
+            <text>{{item.browse_num}}</text>
           </view>
           
           <view class='li_see'>
             <text class='iconfont iconicon-collect'></text>
-            <text>1031</text>
+            <text>{{item.collect_num}}</text>
           </view>
           <view class='li_see'>
             <text class='iconfont iconliaotian'></text>
-            <text>1031</text>
+            <text>{{item.review_num}}</text>
           </view>
-          <view class='li_time'>19-07-11  10:00</view>
+          <view class='li_time'>{{item.create_time}}</view>
         </view>
       </view>
     </view>
   </view>
 </view>
+<template is="htmlStatus" data="{{...htmlStatus}}" />

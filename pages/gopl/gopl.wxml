@@ -1,7 +1,7 @@
 <!--pages/orderpl/orderpl.wxml-->
 <view class="container">
 	<view class="plbox">
-		<textarea name="" id="" placeholder="请输入评论" bindinput="bindTextAreaBlur"></textarea>
+		<textarea name="" id="" placeholder="请输入评论" maxlength='500' bindinput="bindTextAreaBlur"></textarea>
 		<text class="iconfont iconbianji1"></text>
 	</view>
 	

@@ -1,7 +1,7 @@
 //app.js
 App({
-  IPurl: 'http://smwx.800123456.top/api.aspx',
-  IPurl1:'http://smwx.800123456.top/',
+  IPurl: 'http://ceshi.800123456.top',
+  IPurl1:'http://ceshi.800123456.top',
   onLaunch: function () {
     wx.removeStorageSync('userInfo')
     wx.removeStorageSync('userWxmsg')
@@ -28,7 +28,47 @@ App({
     						  }
     						})
     					}else{
-								that.dologin()
+                wx.login({
+                  success: function (res) {
+                    var uinfo = that.globalData.userInfo
+                    let data = {
+                      code: res.code,
+                      nickname: uinfo.nickName,
+                      avatar: uinfo.avatarUrl,
+                    }
+                    let rcode = res.code
+                    console.log(res.code)
+                    wx.request({
+                      url: that.IPurl + '/api/login/login',
+                      data: data,
+                      header: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                      },
+                      dataType: 'json',
+                      method: 'POST',
+                      success(res) {
+                        console.log(res.data)
+                        if (res.data.code == 1) {
+                          console.log('登录成功')
+                          wx.setStorageSync('token', res.data.data)        
+                        } else {
+                          wx.removeStorageSync('userInfo')
+                          wx.removeStorageSync('token')
+                          wx.showToast({
+                            icon: 'none',
+                            title: '登录失败',
+                          })
+                        }
+                      },
+                      fail() {
+                        wx.showToast({
+                          icon: 'none',
+                          title: '登录失败'
+                        })
+                      }
+                    })
+                  }
+                })
 							}
     				}
     			})
@@ -51,17 +91,17 @@ App({
 				// 发送 res.code 到后台换取 openId, sessionKey, unionId
         var uinfo = that.globalData.userInfo
 		    let data = {
-					key:'server_mima',
+					// key:'server_mima',
 					code:res.code,
-          apipage:'login',
+          // apipage:'login',
           nickname: uinfo.nickName,
-          headpicurl: uinfo.avatarUrl,
-          homeid: 0   //0用户端，1师傅端
+          avatar: uinfo.avatarUrl,
+          // homeid: 0   //0用户端，1师傅端
 		    }
 				let rcode=res.code
 				console.log(res.code)
 				wx.request({
-					url:  that.IPurl,
+          url: that.IPurl + '/api/login/login',
 					data: data,
 					header: {
 						'content-type': 'application/x-www-form-urlencoded' 
@@ -70,11 +110,9 @@ App({
 					method:'POST',
 					success(res) {
 						console.log(res.data)
-						if(res.data.error==0){
+						if(res.data.code==1){
               console.log('登录成功')
-              wx.setStorageSync('tokenstr', res.data.tokenstr)
-              wx.setStorageSync('member', res.data.member)
-              wx.setStorageSync('kefu', res.data.fxset)
+              wx.setStorageSync('token', res.data.data)
               // wx.setStorageSync('login', 'login')
               // wx.setStorageSync('morenaddress', res.data.user_member_shopping_address)
               // wx.setStorageSync('appcode', rcode)
@@ -92,10 +130,7 @@ App({
 							
 						}else{
               wx.removeStorageSync('userInfo')
-              wx.removeStorageSync('userWxmsg')
-              wx.removeStorageSync('tokenstr')
-              wx.removeStorageSync('member')
-              wx.removeStorageSync('zprice')
+              wx.removeStorageSync('token')
               wx.showToast({
                 icon:'none',
                 title: '登录失败',

@@ -20,6 +20,12 @@
   color: #333;
   line-height: 1;
   margin-bottom: 29rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.li_name{
+  flex: 1;
 }
 .li_inr{
   font-size:26rpx;

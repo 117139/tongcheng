@@ -1,39 +1,45 @@
 <!--pages/list/list.wxml-->
+
+<import src="/utils/htmlStatus/index.wxml" />
+<wxs src="../../utils/filter.wxs" module="filter" />
 <view class='container'>
   <view class='tc_li'
-        wx:for="{{tc_type}}" 
+        wx:for="{{datalist}}" 
         wx:for-index="idx" 
         wx:for-item="item" 
         wx:key="idx"
-        data-url="/pages/details/details?type={{idx}}" bindtap="jump">
-        <view class='li_tit'>精装一室家具家电齐全，拎包住</view>
-        <view class='li_inr oh2'>大力推荐此房源！居家家庭入住佳选，亮点价格还能商量，包暖气，一年的物业费，电梯房楼层19层，精装修……</view>
+        data-url="/pages/details/details?id={{item.id}}&cate_id={{item.cate_id}}" bindtap="jump">
+        <view class='li_tit'>{{item.title}}</view>
+        <view class='li_inr oh2'>{{item.description}}</view>
          <!-- data-array="{{filter.getgimgarrIP(xqData.task_pics)}}" -->
-        <scroll-view class='li_imgBox' scroll-x>
+        <scroll-view wx:if="{{item.pic}}" class='li_imgBox' scroll-x>
           <image class='li_imgone'
-            wx:for="{{tc_type}}" 
-            wx:for-index="idx" 
-            wx:for-item="item" 
-            wx:key="idx" 
-            src='/static/images/baoxiu_03.png' 
-            data-src="/static/images/baoxiu_03.png"
+            wx:for="{{filter.getgimgarr(item.pic)}}" 
+            wx:for-index="idx1" 
+            wx:for-item="item1" 
+            wx:key="idx1" 
+            src='{{filter.imgIP(item1)}}' 
+            data-src="{{filter.imgIP(item1)}}"
+            data-array="{{filter.getgimgarrIP(item.pic)}}"
             mode="aspectFill" catchtap='pveimg' ></image>
         </scroll-view>
         <view class='li_cz'>
           <view class='li_see'>
             <text class='iconfont iconyanjing1'></text>
-            <text>1031</text>
+            <text>{{item.browse_num}}</text>
           </view>
           
           <view class='li_see'>
             <text class='iconfont iconicon-collect'></text>
-            <text>1031</text>
+            <text>{{item.collect_num}}</text>
           </view>
           <view class='li_see'>
             <text class='iconfont iconliaotian'></text>
-            <text>1031</text>
+            <text>{{item.review_num}}</text>
           </view>
-          <view class='li_time'>19-07-11  10:00</view>
+          <view class='li_time'>{{item.create_time}}</view>
         </view>
       </view>
 </view>
+
+<template is="htmlStatus" data="{{...htmlStatus}}" />

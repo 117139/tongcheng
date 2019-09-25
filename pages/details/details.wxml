@@ -2,9 +2,8 @@
 <import src="/utils/htmlStatus/index.wxml" />
 <import src="../../vendor/wxParse/wxParse.wxml" />
 <wxs src="../../utils/filter.wxs" module="filter" />
-	<template is="htmlStatus" data="{{...htmlStatus}}" />
-<view  wx:if="{{xqData}}" class="container pb160">
-  <image lazy-load='true' src="{{filter.imgIP(bannerimg[0])}}" class="bannerimg" />  
+<view  wx:if="{{xqData[0]}}" class="container ">
+  <image lazy-load='true' src="{{filter.imgIP(xqData[1][0].pic)}}" class="bannerimg" />  
   <!-- <swiper class="swiper" 
     indicator-dots="{{indicatorDots}}" 
     autoplay="{{autoplay}}" 
@@ -23,77 +22,84 @@
   </swiper> -->
   <view class='tc_li'>
     <view class='li_tit'>
-      <text class='li_tit_t'>精装一室家具家电齐全，拎包住</text>
+      <text class='li_tit_t'>{{xqData[0].title}}</text>
       <text bindtap='scbtn' class="iconfont {{sc==1? 'iconwujiaoxing ceb2f16':'iconwujiaoxing1-copy'}}"></text>
     </view>
-    <view class='li_inr oh2'>大力推荐此房源！居家家庭入住佳选，亮点价格还能商量，包暖气，一年的物业费，修……</view>
+    <view class='li_inr oh2'>{{xqData[0].description}}</view>
     <!-- data-array="{{filter.getgimgarrIP(xqData.task_pics)}}" -->
     
     <view class='li_cz'>
       <view class='li_see'>
         <text class='iconfont iconyanjing1'></text>
-        <text>1031</text>
+        <text>{{xqData[0].browse_num}}</text>
       </view>
       
       <view class='li_see'>
         <text class='iconfont iconicon-collect'></text>
-        <text>1031</text>
+        <text>{{xqData[0].collect_num}}</text>
       </view>
       <view class='li_see'>
         <text class='iconfont iconliaotian'></text>
-        <text>1031</text>
+        <text>{{xqData[0].review_num}}</text>
       </view>
-      <view class='li_time'>19-07-11  10:00</view>
+      <view class='li_time'>{{xqData[0].create_time}}</view>
     </view>
   </view>
   <view class='xq_msg'>
-    <view>轿车品牌：其它</view>
-    <view>上牌年份：2015年</view>
-    <view>行驶里程：3万公里</view>
-    <view>价格：12.50万元</view>
-    <view>新旧程度：8成新</view>
-    <view>来源：个人</view>
-    <view>地址：其他</view>
+    <view wx:for="{{xqData[0].attr}}" 
+        wx:for-index="idx" 
+        wx:for-item="item" 
+        wx:key="idx" class='xq_sxli'>
+        <view class='xq_sxname'>{{item.name}}：</view>
+        <text class='xq_sxval'>{{filter.contentN(item.value)}}</text>
+    </view>
     <template is="wxParse" data="{{wxParseData:article.nodes}}" />
-    <scroll-view class='li_imgBox' scroll-x>
-    <image class='li_imgone'
-      wx:for="{{tc_type}}" 
-      wx:for-index="idx" 
-      wx:for-item="item" 
-      wx:key="idx" 
-      src='/static/images/baoxiu_03.png' 
-      data-src="/static/images/baoxiu_03.png"
-      mode="aspectFill" catchtap='pveimg' ></image>
-  </scroll-view>
+    <scroll-view  wx:if="{{xqData[0].pic}}" class='li_imgBox' scroll-x>
+      <image class='li_imgone'
+        wx:for="{{filter.getgimgarr(xqData[0].pic)}}" 
+        wx:for-index="idx1" 
+        wx:for-item="item1" 
+        wx:key="idx1" 
+        src='{{filter.imgIP(item1)}}' 
+        data-src="{{filter.imgIP(item1)}}"
+        data-array="{{filter.getgimgarrIP(xqData[0].pic)}}"
+        mode="aspectFill" catchtap='pveimg' ></image>
+    </scroll-view>
   </view>
-  <view class='lxtel'>
-    <text class='fz30 c3'>联系人：苏明春</text>
-    <view class='telbtn' data-tel="123456487" bindtap='call'>
+  <view class='lxtel' wx:if="{{xqData[0].contact}}">
+    <text class='fz30 c3'>联系人：{{xqData[0].contact}}</text>
+    <view class='telbtn' data-tel="{{xqData[0].phone}}" bindtap='call'>
       <text class='iconfont icondianhua'></text> <text>拨打电话</text>
     </view>
   </view>
   <view class='xq_pl'>
     <view class='pl_tit'>
-      <view class='fz30 c3'>全部评论 <text class='ceb2f16'>（300）</text></view>
-      <view class='plbtn' data-url="/pages/gopl/gopl" bindtap="jump">评论</view>
+      <view class='fz30 c3'>全部评论 <text class='ceb2f16'>（{{pllist.length}}）</text></view>
+      <view class='plbtn' data-url="/pages/gopl/gopl?issue_id={{id}}" bindtap="jump">评论</view>
     </view>
     <view class='pl_list'
-      wx:for="{{tc_type}}" 
+      wx:for="{{pllist}}" 
       wx:for-index="idx" 
       wx:for-item="item" 
       wx:key="idx">
-      <image class='li_tx' src='/static/images/tx.png'></image>
+      <image class='li_tx' src='{{item.avatar}}'></image>
       <view class='li_inr'>
         <view class='li_msg1'>
           <view class='limsg1_l'>
-            <text class='fz30 c3'>小仙女</text>
-            <text class='fz26 c9'>2019-07-21</text>
+            <text class='fz30 c3'>{{item.nickname}}</text>
+            <text class='fz26 c9'>{{item.create_time}}</text>
           </view>
-          <view class='fz26 ceb2f16'>删除</view>
+          <view wx:if="{{item.delete==1}}"
+           class='fz26 ceb2f16' 
+           data-id="{{item.id}}" 
+           catchtap='delpl'>删除</view>
         </view>
-        <view class='li_msg2'>这个还不错！</view>
+        <view class='li_msg2'>{{item.content}}</view>
       </view>
     </view>
   </view>
+  <template is="htmlStatus" data="{{...htmlStatus}}" />
 </view>
 
+
+	

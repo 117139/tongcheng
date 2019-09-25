@@ -4,44 +4,9 @@ const app = getApp()
 
 Page({
   data: {
-    bannerimg: [],
-    fw_data: [],
-    currentIndex: '',
-    page: 1,
-    hot_data: [],
-    cai_data: [
-    ],
-    tc_type: [
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-      {
-        name: '最新'
-      },
-    ],
-    indicatorDots: true,
-    autoplay: true,
-    interval: 3000,
-    duration: 1000,
-    circular: true
+    cate_id:0,
+    page:1,
+    datalist:[]
   },
   //事件处理函数
   bindViewTap: function () {
@@ -49,9 +14,12 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad: function (options) {
+    this.setData({
+      cate_id:options.cate_id
+    })
     this.getbanner()
-    this.gettype()
+    // this.gettype()
   },
   retry() {
     wx.setNavigationBarTitle({
@@ -60,14 +28,11 @@ Page({
       fail: function (res) { },
       complete: function (res) { },
     })
-    // wx.showToast({
-    //   icon: 'none',
-    //   title: '调用重试方法'
-    // })
-    if (getCurrentPages().length != 0) {
-      getCurrentPages()[getCurrentPages().length - 1].onLoad()
-      getCurrentPages()[getCurrentPages().length - 1].onShow()
-    }
+    this.setData({
+      page:1
+
+    })
+    this.getbanner()
     wx.setNavigationBarTitle({
       title: '列表',
     })
@@ -92,39 +57,52 @@ Page({
     }
   },
   getbanner() {
-    /* "apipage": "imagelist",
-          "type": 1 */
+    var that = this
+    const htmlStatus1 = htmlStatus.default(that)
     var that = this
     wx.request({
-      url: app.IPurl,
+      url: app.IPurl +'/api/issue/index',
       data: {
-        apipage: "imagelist",
-        type: 1
-        // tokenstr:wx.getStorageSync('token')
+        cate_id: that.data.cate_id,
+        page: that.data.page,
+        token:wx.getStorageSync('token')
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       dataType: 'json',
-      method: 'get',
+      method: 'post',
       success(res) {
         console.log(res.data)
-        if (res.data.datalist.length == 0) {  //数据为空
-          htmlStatus1.dataNull()    // 切换为空数据状态
-          wx.showToast({
-            icon: 'none',
-            title: '暂无banner'
-          })
-        } else if (res.data.datalist.length > 0) {                           //数据不为空
-          that.data.bannerimg = []
-          for (var i = 0; i < res.data.datalist.length; i++) {
-            that.data.bannerimg.push(res.data.datalist[i].Image1)
+        if (res.data.code == 1) {  //数据为空
+          if (that.data.page == 1 && res.data.data.data.length==0){
+            that.setData({
+              datalist: []
+            })
+            htmlStatus1.dataNull()    // 切换为空数据状态
+            return
           }
+          htmlStatus1.finish()
+          if (res.data.data.data.length == 0){
+            wx.showToast({
+              icon: 'none',
+              title: '到底了'
+            })
+            return
+          }
+          
+          if (that.data.page == 1){
+            that.data.datalist = res.data.data.data
+          }else{
+            that.data.datalist = that.data.datalist.concat(res.data.data.data)
+          }
+          that.data.page++
           that.setData({
-            bannerimg: that.data.bannerimg
+            page:that.data.page,
+            datalist: that.data.datalist
           })
-
-        } else {
+        }  else {
+          htmlStatus1.error()
           wx.showToast({
             icon: 'none',
             title: '加载失败'
@@ -133,6 +111,7 @@ Page({
         }
       },
       fail() {
+        htmlStatus1.error()
         wx.showToast({
           icon: 'none',
           title: '加载失败'
@@ -140,6 +119,8 @@ Page({
 
       },
       complete() {
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
       }
     })
   },

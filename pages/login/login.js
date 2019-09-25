@@ -21,7 +21,6 @@ Page({
       console.log(e.detail.userInfo)
       app.globalData.userInfo = e.detail.userInfo
       wx.setStorageSync('userInfo', e.detail.userInfo)
-			wx.setStorageSync('userWxmsg', e.detail.userInfo)
       app.dologin('shouquan')
       
     } else {

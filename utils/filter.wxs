@@ -1,4 +1,4 @@
-var imgip ='http://smwx.800123456.top/'
+var imgip ='http://ceshi.800123456.top/'
 // filter.wxs
 var dateFormat = function(date) {
     var dates = date.split('/');
@@ -31,11 +31,22 @@ var getgimg = function (pic){
 //     return imgip+img1[0]
 // }
 var getgimgarr = function (img) {
+  if(!img){
+    return
+  }
   var img1 = img.split(",")
   // console.log(img1[0])
   return img1
 }
+var getgimgarrIP = function (img) {
+  var img1 = img.split(",")
+  // console.log(img1[0])
+  for (var i = 0; i < img1.length; i++) {
+    img1[i] = imgip + img1[i]
 
+  }
+  return img1
+}
 var getgimgarrIP = function (img) {
   var img1 = img.split(",")
   // console.log(img1[0])
@@ -84,6 +95,18 @@ var arrtostr=function(arr){
 
 
 
+
+var contentN = function (text) {
+  if (text) {
+    console.log(text);
+    var pattern = "\\\\n";
+    var target = "\n";
+    var reg = getRegExp(pattern, "g");
+    return text.replace(reg, target);
+
+  }
+}
+
 /*
  * 导出
  */
@@ -96,6 +119,7 @@ module.exports = {
 	getgimgarr:getgimgarr,
   getgimgarrIP: getgimgarrIP,
 	getDateTime: getDateTime,
-	arrtostr:arrtostr
+	arrtostr:arrtostr,
+  contentN: contentN
 
 }

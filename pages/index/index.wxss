@@ -168,7 +168,8 @@ page{
 }
 .tctabone{
   display: inline-flex;
-  width:100rpx;
+  /* width:100rpx; */
+  padding: 0 30rpx;
   height:46rpx;
   background:#F0F0F0;
   color: #666666;
