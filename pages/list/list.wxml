@@ -9,7 +9,7 @@
         wx:for-item="item" 
         wx:key="idx"
         data-url="/pages/details/details?id={{item.id}}&cate_id={{item.cate_id}}" bindtap="jump">
-        <view class='li_tit'>{{item.title}}</view>
+        <view class='li_tit'><text wx:if="{{item.sticky_status==1}}" class="iconfont iconzhiding" style="color:rgb(235,47,22);margin-right:10rpx;"></text>{{item.title}}</view>
         <view class='li_inr oh2'>{{item.description}}</view>
          <!-- data-array="{{filter.getgimgarrIP(xqData.task_pics)}}" -->
         <scroll-view wx:if="{{item.pic}}" class='li_imgBox' scroll-x>

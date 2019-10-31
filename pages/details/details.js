@@ -180,6 +180,10 @@ Page({
             xqData: res.data.data,
             sc: res.data.data[0].user_collect
           })
+         wx.setNavigationBarTitle({
+           title: res.data.data[0].title,
+         })
+         
         //  var article = res.data.model.description
         //   var subStr = new RegExp('<div>&nbsp;</div>', 'ig');
         //   article = article.replace(subStr, "<text style='margin-bottom:1em;'></text>");
@@ -217,9 +221,9 @@ Page({
       complete() {
         // 停止下拉动作
         wx.stopPullDownRefresh();
-        wx.setNavigationBarTitle({
-          title: '详情'
-        })
+        // wx.setNavigationBarTitle({
+        //   title: '详情'
+        // })
       }
     })
   },

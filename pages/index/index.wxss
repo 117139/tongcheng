@@ -5,6 +5,16 @@ page{
 	/* overflow-y: auto!important; */
 	background-color: #eee;
 }
+@keyframes around {
+  from {
+   margin-left: 100%;
+  }
+  to {
+   /* var接受传入的变量 */
+   margin-left: var(--marqueeWidth--);
+  }
+ }
+
 .container{
 	min-height: 100%;
 	height: auto;
@@ -29,6 +39,24 @@ page{
   font-size: 22rpx;
   color: #ff9d59;
 }
+.zzgg_box{
+  font-size: 22rpx;
+  color: #ff9d59;
+  display: flex;
+}
+.zzgg_xbox{
+  width: 600rpx;
+  overflow: hidden;
+}
+.zzgg_xbox view{
+  width: auto;
+  white-space: nowrap;
+  animation-name: around;
+  animation-duration: 10s;  /*过渡时间*/
+  animation-iteration-count: infinite;
+  animation-timing-function:linear;
+
+}
 .main{
 	width: 100%;
 	/* padding: 0 24rpx; */
@@ -46,7 +74,7 @@ page{
   position: absolute;
   top:22rpx;
   right: 32rpx;
-  z-index: 99;
+  z-index: 999;
   font-size: 28rpx;
   color: #fff;
 }
@@ -88,7 +116,7 @@ page{
 }
 .fw_box{
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	flex-wrap: wrap;
   padding-top: 26rpx;
   background: #fff;
@@ -146,7 +174,8 @@ page{
   padding: 0 20rpx;
   box-sizing: border-box;
   height: 70rpx;
-  display: flex;
+  /* display: flex; */
+  line-height: 70rpx;
   align-items: center;
   font-size: 28rpx;
   color: #ff9b59;

@@ -1,7 +1,7 @@
 //app.js
 App({
-  IPurl: 'http://ceshi.800123456.top',
-  IPurl1:'http://ceshi.800123456.top',
+  IPurl: 'https://alaer.800123456.top',
+  IPurl1:'https://alaer.800123456.top',
   onLaunch: function () {
     wx.removeStorageSync('userInfo')
     wx.removeStorageSync('userWxmsg')

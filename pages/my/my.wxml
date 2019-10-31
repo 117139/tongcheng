@@ -5,12 +5,19 @@
 		<image class="mybg" src="../../static/images/mybg.jpg"></image>
 		<!-- <text class="iconfont iconshezhi" data-url="/pages/mymsg/mymsg" bindtap="jump"></text> -->
 		<view  class="tx_box">
-      <image wx:if="{{!userInfo.nickName}}" class="user_tx" src="/static/images/tx.jpg"></image>
+      <image wx:if="{{!userInfo.nickName}}" class="user_tx" src="/static/images/tx.jpg" data-url="/pages/login/login" bindtap='jump'></image>
       <image wx:if="{{userInfo.nickName}}" class="user_tx" src='{{userInfo.avatarUrl}}'></image>
     </view>
 		<view wx:if="{{userInfo.nickName}}" class="user_name">{{userInfo.nickName}}</view>
 		<view wx:if="{{!userInfo.nickName}}" class="user_name"
     data-url="/pages/login/login" bindtap='jump'>点击登录</view>
+	</view>
+	<view class="my_list" data-url="/pages/fabu1/fabu1" bindtap="jump">
+		<view class="list_name">
+			<text class="iconfont iconfabu"></text>
+			发布信息
+		</view>
+		<text class="iconfont iconnext"></text>
 	</view>
 	<view class="my_list" data-url="/pages/shoucang/shoucang" bindtap="jump">
 		<view class="list_name">

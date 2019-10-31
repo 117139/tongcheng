@@ -18,7 +18,9 @@ Page({
 		autoplay: true,
 		interval: 3000,
 		duration: 1000,
-		circular: true
+		circular: true,
+    intfuc:'',
+    marquee_margin:0
 	},
 	//事件处理函数
 	bindViewTap: function() {
@@ -54,6 +56,9 @@ Page({
 
     this.retry()
   },
+	onShareAppMessage: function () {
+	
+	},
   /**
   * 页面上拉触底事件的处理函数
   */
@@ -81,6 +86,8 @@ Page({
     // }
   },
 	jump(e){
+    var that =this
+    clearInterval(that.data.intervalfuc)
 		app.jump(e)
 	},
   getbanner(){
@@ -100,10 +107,11 @@ Page({
         htmlStatus1.finish()
         console.log(res.data)
         if (res.data.code == 1) {  //数据为空
-        var tablist=[{
-          id:'',
-          title:'最新'
-        }]
+          // clearInterval(interval)
+          var tablist=[{
+            id:'',
+            title:'最新'
+          }]
           tablist = tablist.concat(res.data.data.cate)
           that.setData({
             bannerimg: res.data.data.ad,
@@ -120,6 +128,18 @@ Page({
               datalist: res.data.issue.data,
             })
           }
+          
+          // var interval = setInterval(function () {
+          //   that.data.marquee_margin = that.data.marquee_margin + 1
+          //   that.setData({
+          //     marquee_margin: that.data.marquee_margin
+          //   })
+          // }, 30)
+          // that.data.intfuc = interval
+          // that.setData({
+          //   intfuc : interval
+          // })
+          
         }else {
           htmlStatus1.error()
           wx.showToast({
@@ -142,6 +162,40 @@ Page({
         wx.stopPullDownRefresh();
       }
     })
+  },
+  marquee0(){
+    var that=this
+    clearInterval(that.data.intfuc)
+    that.setData({
+      marquee_margin:0
+    })
+    that.data.intfuc = setInterval(function () {
+      that.data.marquee_margin = that.data.marquee_margin + 1
+      that.setData({
+        marquee_margin: that.data.marquee_margin
+      })
+    }, 30)
+    that.setData({
+      intfuc: that.data.intfuc
+    })
+  },
+  marquee1(){
+    var that =this
+    clearInterval(interval)
+    // that.data.marquee_margin = that.data.marquee_margin + 1
+    // that.setData({
+    //   marquee_margin: that.data.marquee_margin
+    // })
+    // setTimeout(function () {
+    //   that.marquee1()
+    // },30)
+    var interval = setInterval(function () {
+      that.data.marquee_margin = that.data.marquee_margin + 1
+      that.setData({
+        marquee_margin: that.data.marquee_margin
+      })
+    }, 30)
+    
   },
   getdatalist(id) {
     var that = this

@@ -1,0 +1,110 @@
+/* pages/fabu1/fabu1.wxss */
+.container{
+  width: 750rpx;
+  padding: 0 34rpx 140rpx;
+  position: relative;
+  background: #fff;
+  align-items: stretch;
+}
+
+.fabu1_box2{
+  width: 100%;
+  /* padding: 32rpx 0; */
+  box-sizing: border-box;
+  background: #fff;
+}
+.fabu1_box2-tit{
+  line-height: 1;
+  font-size: 30rpx;
+  color: #333;
+  padding: 32rpx 0;
+}
+.fabu1_box2_sr{
+  width: 100%;
+	height: 313rpx;
+	/* background-color: #f7f7f7; */
+	border-radius: 10rpx;
+	border: solid 1rpx #eeeeee;
+  padding: 16rpx;
+  box-sizing: border-box;
+}
+.fbb2_sr_sr{
+  width: 100%;
+  height: 100%;
+  padding: 0 15rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+.imgbox{
+  margin-top: 12rpx;
+  display: flex;
+  flex-wrap: wrap;
+}
+.addimg{
+  width: 220rpx;
+  height: 220rpx;
+  margin-right: 12rpx;
+  margin-bottom: 12rpx;
+}
+.addimg:nth-child(3n){
+  margin-right: 0
+}
+.addimg image{
+  width: 100%;
+  height: 100%;
+}
+.fb_add{
+  padding-top: 20rpx;
+}
+.icondizhi-copy{
+  font-size: 26rpx;
+  color: #f4b200;
+}
+.wx-switch-input{width:86rpx !important;height:50rpx !important;}
+.wx-switch-input::before{width:82rpx !important;height: 46rpx !important;}
+.wx-switch-input::after{width: 44rpx !important;height: 44rpx !important;}
+.mt20{
+  margin-top: 20rpx;
+}
+.th_kg{
+  width: 100%;
+  /* margin-top: 20rpx; */
+  height: 102rpx;
+  box-sizing: border-box;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size:30rpx;
+  font-family:Microsoft YaHei;
+  font-weight:400;
+  color:#666;
+  border-bottom: 1px solid #eee;
+}
+.th_kg text:nth-child(1){
+  min-width: 4em;
+}
+.th_kg .iconfont{
+  color: #dddddd;
+  margin-left: 12rpx;
+  font-size: 30rpx;
+}
+.cef3e00{
+  color: #ef3e00;
+}
+.fb1_btn{
+  margin-top: 80rpx;
+  width: 600rpx;
+	height: 80rpx;
+	background-color: #eb2f16;
+	border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 32rpx;
+}
+.lx_tel{
+  flex: 1;
+  padding: 0 14rpx;
+}

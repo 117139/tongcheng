@@ -6,7 +6,8 @@ Page({
   data: {
     cate_id:0,
     page:1,
-    datalist:[]
+    datalist:[],
+    title:''
   },
   //事件处理函数
   bindViewTap: function () {
@@ -16,31 +17,45 @@ Page({
   },
   onLoad: function (options) {
     this.setData({
-      cate_id:options.cate_id
+      cate_id:options.cate_id,
+      title: options.title
     })
     this.getbanner()
     // this.gettype()
+    wx.setNavigationBarTitle({
+      title: this.data.title,
+    })
   },
   retry() {
+    var that =this
     wx.setNavigationBarTitle({
       title: '加载中...',
       success: function (res) { },
       fail: function (res) { },
       complete: function (res) { },
     })
-    this.setData({
+    that.setData({
       page:1
 
     })
-    this.getbanner()
+    that.getbanner()
     wx.setNavigationBarTitle({
-      title: '列表',
+      title: that.data.title,
     })
   },
+	onShareAppMessage: function () {},
   onPullDownRefresh: function () {
     console.log('下拉')
 
     this.retry()
+  },
+  /**
+  * 页面上拉触底事件的处理函数
+  */
+  onReachBottom: function () {
+    var that = this
+    console.log('上拉')
+    that.getbanner()
   },
   jump(e) {
     app.jump(e)
@@ -172,7 +187,7 @@ Page({
       },
       complete() {
         wx.setNavigationBarTitle({
-          title: '列表',
+          title: that.data.title,
         })
       }
     })

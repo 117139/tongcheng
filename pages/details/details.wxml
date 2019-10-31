@@ -3,7 +3,7 @@
 <import src="../../vendor/wxParse/wxParse.wxml" />
 <wxs src="../../utils/filter.wxs" module="filter" />
 <view  wx:if="{{xqData[0]}}" class="container ">
-  <image lazy-load='true' src="{{filter.imgIP(xqData[1][0].pic)}}" class="bannerimg" />  
+  <image wx:if="{{xqData[1][0]}}" lazy-load='true' src="{{filter.imgIP(xqData[1][0].pic)}}" class="bannerimg" />  
   <!-- <swiper class="swiper" 
     indicator-dots="{{indicatorDots}}" 
     autoplay="{{autoplay}}" 
@@ -25,7 +25,7 @@
       <text class='li_tit_t'>{{xqData[0].title}}</text>
       <text bindtap='scbtn' class="iconfont {{sc==1? 'iconwujiaoxing ceb2f16':'iconwujiaoxing1-copy'}}"></text>
     </view>
-    <view class='li_inr oh2'>{{xqData[0].description}}</view>
+    <view class='li_inr'>{{xqData[0].description?xqData[0].description:''}}</view>
     <!-- data-array="{{filter.getgimgarrIP(xqData.task_pics)}}" -->
     
     <view class='li_cz'>
@@ -67,7 +67,7 @@
     </scroll-view>
   </view>
   <view class='lxtel' wx:if="{{xqData[0].contact}}">
-    <text class='fz30 c3'>联系人：{{xqData[0].contact}}</text>
+    <text class='fz30 c3 oh1'>联系人：{{xqData[0].contact}}</text>
     <view class='telbtn' data-tel="{{xqData[0].phone}}" bindtap='call'>
       <text class='iconfont icondianhua'></text> <text>拨打电话</text>
     </view>

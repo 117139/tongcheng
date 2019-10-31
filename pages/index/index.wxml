@@ -5,7 +5,14 @@
 <view wx:if="{{cate}}" class="container">
   <view class='zzgg'>
     <text class='iconfont iconxiaolaba'></text>
-    <text class='oh1'>站长公告: {{notice[0].content}}</text>
+    <view class='zzgg_box'>站长公告： 
+    <view class='zzgg_xbox' style="--marqueeWidth--:-{{notice[0].content.length-10}}em">
+        <view class="zzgg_xbox_msg">{{notice[0].content}}</view>
+    </view>
+      <!-- <scroll-view class='zzgg_xbox' scroll-x scroll-left="{{marquee_margin}}" lower-threshold="0" bindscrolltolower="marquee0">
+        <view class='zzgg_xbox_msg'><text style='display:inline-block;width:50px;'></text>{{notice[0].content}} <text style='display:inline-block;width:100px;'></text></view>
+      </scroll-view> -->
+    </view>
   </view>
   <view class='w100 swiper_box'>
     <view class='gomy' data-url="/pages/my/my" bindtap="jump">
@@ -47,7 +54,7 @@
   <view class="main">
 
     <view class="fw_box">
-      <view class="fw_one" wx:for="{{cate}}" wx:for-index="idx" wx:for-item="item" wx:key="idx" data-url="/pages/list/list?cate_id={{item.id}}" bindtap="jump">
+      <view class="fw_one" wx:for="{{cate}}" wx:for-index="idx" wx:for-item="item" wx:key="idx" data-url="/pages/list/list?cate_id={{item.id}}&title={{item.title}}" bindtap="jump">
         <image wx:if="{{item.icon}}" lazy-load='true' src="{{filter.imgIP(item.icon)}}"></image>
         <text>{{item.title}}</text>
       </view>
@@ -91,7 +98,8 @@
         wx:for-item="item" 
         wx:key="idx"
         data-url="/pages/details/details?id={{item.id}}&cate_id={{item.cate_id}}" bindtap="jump">
-        <view class='li_tit'>{{item.title}}</view>
+        <view class='li_tit oh1'
+        ><text wx:if="{{item.sticky_status==1}}" class="iconfont iconzhiding" style="color:rgb(235,47,22);margin-right:10rpx;"></text>{{item.title}}</view>
         <view wx:if="{{item.description}}" class='li_inr oh2'>{{item.description}}</view>
          <!-- data-array="{{filter.getgimgarrIP(xqData.task_pics)}}" -->
         <scroll-view wx:if="{{item.pic}}" class='li_imgBox' scroll-x>

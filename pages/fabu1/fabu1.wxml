@@ -1,0 +1,71 @@
+<!--pages/fabu1/fabu1.wxml-->
+<wxs src="../../utils/filter.wxs" module="filter" />
+<import src="/utils/htmlStatus/index.wxml" />
+<form class='container' wx:if="{{attr.length>0}}" report-submit='true'
+bindsubmit="formSubmit">
+  <picker class='w100' bindchange="bindPickerChange" value="{{index1}}" range-key="title" range="{{index_tab}}" data-idx="1">
+    <view class='th_kg'>
+      <text>选择分类</text>
+      <view>
+        <text class=''>{{index_tab[index1].title}}</text>
+        <text class='iconfont iconnext'></text>
+      </view>
+    </view> 
+  </picker>
+  <view class='th_kg'>
+    <text>标题</text>
+    <input class="lx_tel" type="text" data-int="title" bindinput="bint" value="{{fb_title}}"  placeholder="请输入标题"></input>
+  </view>
+  <view  wx:if="{{attr.length>0}}" class='fabu1_box2'>
+    <view class='fabu1_box2-tit'>描述</view>
+    <view class='fabu1_box2_sr'>
+      <textarea class='fbb2_sr_sr' data-int="fb_miaoshu" bindinput="bint" value="{{fb_miaoshu}}" placeholder='请输入您要发布的信息' maxlength='-1'></textarea>
+
+    </view>
+    <view class="imgbox">
+			<view class="addimg addimg1" wx:for="{{imgb}}" 
+					 wx:for-index="idx"
+					 wx:for-item="item"
+					 wx:key="idx"
+					 data-idx="{{idx}}"
+					 bindtap="imgdel">
+				<image  src="{{filter.imgIP(item)}}" data-src="{{filter.imgIP(item)}}"
+					 mode="aspectFill"></image>
+				<!-- <image  src="{{item}}" data-src="{{item}}"
+					 mode="aspectFill"></image> -->
+			</view>
+			
+			<view wx:if="{{imgb.length<9}}" class="addimg" bindtap="scpic">
+				
+				<image src="../../static/images/upimg.png"></image>
+			</view>
+		</view>
+  </view>
+  <view class='th_kg' wx:for="{{index_tab[index1].attr}}" 
+        wx:for-index="idx" 
+        wx:for-item="item" 
+        wx:key="idx">
+    <text>{{item.name}}</text>
+    <input class="lx_tel" type="text" name="{{item.id}}" placeholder="请输入{{item.name}}"></input>
+    
+  </view> 
+  <view class='th_kg'>
+    <text>联系人</text>
+    <input class="lx_tel" type="text" data-int="fb_name" bindinput="bint" value="{{fb_name}}" placeholder="请输入联系人姓名"></input>
+  </view> 
+  <view class='th_kg'>
+    <text>联系方式</text>
+    <input class="lx_tel" type="text" data-int="fb_tel" bindinput="bint" value="{{fb_tel}}"  placeholder="请输入您的手机号"></input>
+  </view> 
+  <picker class='w100' bindchange="bindPickerChange" value="{{index2}}" range="{{qx1}}" data-idx="2">
+    <view class='th_kg'>
+      <text>置顶时间</text>
+      <view>
+        <text class='cef3e00'>{{qx1[index2]==7?'默认时间（'+qx1[index2]+'天）':qx1[index2]+'天'}}</text>
+        <text class='iconfont iconnext'></text>
+      </view>
+    </view> 
+  </picker>
+  <button  class='fb1_btn' formType="submit">确定发布</button>
+  <!-- <view class='fb1_btn' catchtap='fabusub'>确定发布</view> -->
+</form>

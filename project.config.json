@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -14,7 +14,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.8",
-	"appid": "wxd1bca62ff44b2403",
+	"appid": "wx6af88b6abe57fbda",
 	"projectname": "tongcheng",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},

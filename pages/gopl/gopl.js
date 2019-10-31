@@ -122,7 +122,7 @@ Page({
           if (res.data.msg){
             wx.showToast({
               icon: 'none',
-              title: msg
+              title: res.data.msg
             })
           }else{
             wx.showToast({
