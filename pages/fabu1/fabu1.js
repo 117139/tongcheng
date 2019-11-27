@@ -41,6 +41,7 @@ Page({
   onLoad: function (options) {
     var that = this
     that.getfbmsg()
+    that.getzd()
   },
 
   /**
@@ -93,7 +94,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    return {
+      title: '阿拉尔市本地通便民网',
+      // title: that.data.goods.goods_name,
+      success: function (res) {
+        console.log('成功', res)
 
+      }
+    }
   },
   formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail)
@@ -182,13 +190,20 @@ Page({
       })
       return
     }
-    if (!(/^1\d{10}$/.test(that.data.fb_tel))) {
+    if (that.data.fb_tel == "") {
       wx.showToast({
-        icon: 'none',
-        title: '手机号有误'
+        icon: "none",
+        title: "请输入联系方式"
       })
       return
     }
+    // if (!(/^1\d{10}$/.test(that.data.fb_tel))) {
+    //   wx.showToast({
+    //     icon: 'none',
+    //     title: '手机号有误'
+    //   })
+    //   return
+    // }
     if(that.data.btnkg==1){
       return
     }else{
@@ -217,12 +232,13 @@ Page({
         cate_id: that.data.index_tab[that.data.index1].id,
         title: that.data.fb_title,
         sticky_status: 1,
-        sticky_num: that.data.qx1[that.data.index2],
+        sticky_num: that.data.qx1[that.data.index2].sticky_num,
         contact: that.data.fb_name, 
         pic: imbox,       
         phone: that.data.fb_tel,
         description: that.data.fb_miaoshu,
-        attr: attr
+        attr: attr,
+        sticky_id: that.data.qx1[that.data.index2].id
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -242,7 +258,7 @@ Page({
             duration: 2000
           })
           setTimeout(function () {
-            wx.redirectTo({
+            wx.reLaunch({
               url: '/pages/index/index',
             })
             that.setData({
@@ -254,6 +270,9 @@ Page({
             
           }, 1000)
 
+        } else if(res.data.code == 3){
+          console.log(res.data)
+          that.doWxPay(res.data)
         } else {
           that.setData({
             btnkg: 0
@@ -510,4 +529,96 @@ Page({
       }
     })
   },
+	getzd(){
+		var that =this
+		wx.request({
+		  url: app.IPurl + '/api/sticky/index',
+		  data: {
+		    token: wx.getStorageSync('token'),
+			},
+		  header: {
+		    'content-type': 'application/x-www-form-urlencoded'
+		  },
+		  dataType: 'json',
+		  method: 'get',
+		  success(res) {
+		   
+		    if (res.data.code == 1) {
+					console.log(res.data)
+          that.setData({
+            qx1: res.data.data
+          })
+		    } else {
+		      if (res.data.msg) {
+		        wx.showToast({
+		          icon: 'none',
+		          title: res.data.msg
+		        })
+		      } else {
+		        wx.showToast({
+		          icon: 'none',
+		          title: '获取失败'
+		        })
+		      }
+		    }
+		
+		
+		  },
+		  fail() {
+		    that.setData({
+		      btnkg: 0
+		    })
+		    wx.hideLoading()
+		    wx.showToast({
+		      icon: 'none',
+		      title: '获取失败'
+		    })
+		  }
+		})
+	},
+	doWxPay(param) {
+		// wx.showToast({
+		// 	title:'doWxPay'
+		// })
+		//小程序发起微信支付
+		wx.requestPayment({
+			timeStamp: param.data.timeStamp,//记住，这边的timeStamp一定要是字符串类型的，不然会报错
+			nonceStr: param.data.nonceStr,//随机字符串
+			package: param.data.package,
+			signType: 'MD5',
+			paySign: param.data.paySign,
+			success: function (event) {
+				// success
+				console.log(event);
+				
+				wx.redirectTo({
+          url: '/pages/index/index?id=-2'
+				})
+				wx.showToast({
+					title: '支付成功',
+					icon: 'none',
+					duration: 1000
+				});
+			},
+			fail: function (error) {
+				// fail
+				console.log("支付失败")
+				
+				wx.redirectTo({
+					url: '/pages/OrderList/OrderList?id=0'
+				})
+				wx.showToast({
+					title: '支付失败',
+					icon: 'none',
+					duration: 1000
+				});
+				console.log(error)
+			},
+			complete: function () {
+				// complete
+				console.log("pay complete")
+			}
+		 
+		});
+	},
 })

@@ -57,7 +57,14 @@ Page({
     this.retry()
   },
 	onShareAppMessage: function () {
-	
+    return {
+      title: '阿拉尔市本地通便民网',
+      // title: that.data.goods.goods_name,
+      success: function (res) {
+        console.log('成功', res)
+
+      }
+    }
 	},
   /**
   * 页面上拉触底事件的处理函数

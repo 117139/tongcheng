@@ -1,4 +1,4 @@
-var imgip ='https://alaer.800123456.top'
+var imgip ='https://alaer.800123456.top/'
 // filter.wxs
 var dateFormat = function(date) {
     var dates = date.split('/');

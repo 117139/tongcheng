@@ -43,7 +43,16 @@ Page({
       title: that.data.title,
     })
   },
-	onShareAppMessage: function () {},
+	onShareAppMessage: function () {
+    return {
+      title: '阿拉尔市本地通便民网',
+      // title: that.data.goods.goods_name,
+      success: function (res) {
+        console.log('成功', res)
+
+      }
+    }
+  },
   onPullDownRefresh: function () {
     console.log('下拉')
 

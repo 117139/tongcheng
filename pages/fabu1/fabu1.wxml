@@ -1,7 +1,7 @@
 <!--pages/fabu1/fabu1.wxml-->
 <wxs src="../../utils/filter.wxs" module="filter" />
 <import src="/utils/htmlStatus/index.wxml" />
-<form class='container' wx:if="{{attr.length>0}}" report-submit='true'
+<form class='container' wx:if="{{index_tab.length>0}}" report-submit='true'
 bindsubmit="formSubmit">
   <picker class='w100' bindchange="bindPickerChange" value="{{index1}}" range-key="title" range="{{index_tab}}" data-idx="1">
     <view class='th_kg'>
@@ -16,7 +16,7 @@ bindsubmit="formSubmit">
     <text>标题</text>
     <input class="lx_tel" type="text" data-int="title" bindinput="bint" value="{{fb_title}}"  placeholder="请输入标题"></input>
   </view>
-  <view  wx:if="{{attr.length>0}}" class='fabu1_box2'>
+  <view  wx:if="{{index_tab.length>0}}" class='fabu1_box2'>
     <view class='fabu1_box2-tit'>描述</view>
     <view class='fabu1_box2_sr'>
       <textarea class='fbb2_sr_sr' data-int="fb_miaoshu" bindinput="bint" value="{{fb_miaoshu}}" placeholder='请输入您要发布的信息' maxlength='-1'></textarea>
@@ -41,7 +41,7 @@ bindsubmit="formSubmit">
 			</view>
 		</view>
   </view>
-  <view class='th_kg' wx:for="{{index_tab[index1].attr}}" 
+  <view wx:if="{{index_tab[index1].attr}}" class='th_kg' wx:for="{{index_tab[index1].attr}}" 
         wx:for-index="idx" 
         wx:for-item="item" 
         wx:key="idx">
@@ -55,13 +55,13 @@ bindsubmit="formSubmit">
   </view> 
   <view class='th_kg'>
     <text>联系方式</text>
-    <input class="lx_tel" type="text" data-int="fb_tel" bindinput="bint" value="{{fb_tel}}"  placeholder="请输入您的手机号"></input>
+    <input class="lx_tel" type="text" data-int="fb_tel" bindinput="bint" value="{{fb_tel}}"  placeholder="请输入您的联系方式"></input>
   </view> 
-  <picker class='w100' bindchange="bindPickerChange" value="{{index2}}" range="{{qx1}}" data-idx="2">
+  <picker class='w100' bindchange="bindPickerChange" value="{{index2}}" range-key="sticky_num" range="{{qx1}}" data-idx="2">
     <view class='th_kg'>
       <text>置顶时间</text>
       <view>
-        <text class='cef3e00'>{{qx1[index2]==7?'默认时间（'+qx1[index2]+'天）':qx1[index2]+'天'}}</text>
+        <text class='cef3e00'>{{qx1[index2].sticky_num==0?'不置顶':qx1[index2].sticky_num+'天'}}</text>
         <text class='iconfont iconnext'></text>
       </view>
     </view> 

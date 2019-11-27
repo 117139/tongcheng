@@ -117,7 +117,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    return {
+      title: '阿拉尔市本地通便民网',
+      // title: that.data.goods.goods_name,
+      success: function (res) {
+        console.log('成功', res)
 
+      }
+    }
   },
 	jump(e){
     if (!wx.getStorageSync('userInfo')) {

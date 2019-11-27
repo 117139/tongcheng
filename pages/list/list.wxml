@@ -18,6 +18,7 @@
             wx:for-index="idx1" 
             wx:for-item="item1" 
             wx:key="idx1" 
+            lazy-load="true"
             src='{{filter.imgIP(item1)}}' 
             data-src="{{filter.imgIP(item1)}}"
             data-array="{{filter.getgimgarrIP(item.pic)}}"
