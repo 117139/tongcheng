@@ -12,7 +12,7 @@
 		<view wx:if="{{!userInfo.nickName}}" class="user_name"
     data-url="/pages/login/login" bindtap='jump'>点击登录</view>
 	</view>
-	<view class="my_list" data-url="/pages/fabu1/fabu1" bindtap="jump">
+	<view wx:if="{{issue==1}}" class="my_list" data-url="/pages/fabu1/fabu1" bindtap="jump">
 		<view class="list_name">
 			<text class="iconfont iconfabu"></text>
 			发布信息

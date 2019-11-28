@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    issue: 0,
     userInfo:'',
     'member': wx.getStorageSync('member'),
   },
@@ -16,7 +17,8 @@ Page({
   onLoad: function (options) {
 		// var usermsg=wx.getStorageSync('userInfo')
     this.setData({
-      userInfo: wx.getStorageSync('userInfo')
+      userInfo: wx.getStorageSync('userInfo'),
+      issue:app.issue 
     })
 		// if(!usermsg){
 		// 	// 获取用户信息

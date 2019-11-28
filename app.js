@@ -2,6 +2,7 @@
 App({
   IPurl: 'https://alaer.800123456.top/',
   IPurl1:'https://alaer.800123456.top/',
+  issue:0,
   onLaunch: function () {
     wx.removeStorageSync('userInfo')
     wx.removeStorageSync('userWxmsg')
@@ -50,7 +51,8 @@ App({
                         console.log(res.data)
                         if (res.data.code == 1) {
                           console.log('登录成功')
-                          wx.setStorageSync('token', res.data.data)        
+                          wx.setStorageSync('token', res.data.data)   
+                          that.issue = res.data.issue  
                         } else {
                           wx.removeStorageSync('userInfo')
                           wx.removeStorageSync('token')
@@ -113,6 +115,7 @@ App({
 						if(res.data.code==1){
               console.log('登录成功')
               wx.setStorageSync('token', res.data.data)
+              that.issue = res.data.issue  
               // wx.setStorageSync('login', 'login')
               // wx.setStorageSync('morenaddress', res.data.user_member_shopping_address)
               // wx.setStorageSync('appcode', rcode)
