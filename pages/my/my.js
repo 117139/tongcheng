@@ -1,4 +1,5 @@
 // pages/my/my.js
+var WxParse = require('../../vendor/wxParse/wxParse.js')
 const app=getApp()
 Page({
 
@@ -15,11 +16,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that=this
 		// var usermsg=wx.getStorageSync('userInfo')
-    this.setData({
+    that.setData({
       userInfo: wx.getStorageSync('userInfo'),
       issue:app.issue 
     })
+    if (!app.issue){
+      return
+    }
+    var article = app.issue
+    var subStr = new RegExp('<div>&nbsp;</div>', 'ig');
+    article = article.replace(subStr, "<text style='margin-bottom:1em;'></text>");
+    WxParse.wxParse('article', 'html', article, that, 5);
 		// if(!usermsg){
 		// 	// 获取用户信息
 		// 	wx.getSetting({
@@ -57,7 +66,7 @@ Page({
 		// 	})
 			
 		// }else{
-		// 	this.setData({
+		// 	that.setData({
 		// 		userInfo:usermsg
 		// 	})
 		// }

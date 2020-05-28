@@ -32,7 +32,8 @@ Page({
     fb_title: '',
     fb_miaoshu: '',
     fb_name: '',
-    fb_tel: ''
+    fb_tel: '',
+    issue:''
   },
 
   /**
@@ -40,6 +41,10 @@ Page({
    */
   onLoad: function (options) {
     var that = this
+    this.setData({
+      userInfo: wx.getStorageSync('userInfo'),
+      issue: app.issue
+    })
     that.getfbmsg()
     that.getzd()
   },

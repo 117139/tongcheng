@@ -53,20 +53,27 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
+    var that=this
+    that.setData({
       page:1,
       pllist:[]
     })
-    this.getDetails()
-    this.getpllist('show')
+    that.getDetails()
+    setTimeout(function(){
+      that.getpllist('show')
+    },100)
+    
   },
   retry: function () {
-    this.setData({
+    var that = this
+    that.setData({
       page: 1,
       pllist: []
     })
-    this.getDetails()
-    this.getpllist('show')
+    that.getDetails()
+    setTimeout(function () {
+      that.getpllist('show')
+    }, 100)
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -86,12 +93,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.setData({
-      page: 1,
-      pllist: []
-    })
-    this.getDetails()
-    this.getpllist()
+    this.retry()
   },
 
   /**
@@ -201,11 +203,17 @@ Page({
        
           // htmlStatus1.finish()    // 切换为finish状态
         } else {
+         console.log(res.data.msg)
           if(res.data.msg){
             wx.showToast({
               icon: 'none',
               title: res.data.msg
             })
+            setTimeout(function (){
+              if (res.data.msg =='请选择正确内容查看'){
+                wx.navigateBack()
+              }
+            },2000)
           }else{
             wx.showToast({
               icon: 'none',

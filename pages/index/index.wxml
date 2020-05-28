@@ -2,7 +2,7 @@
 <import src="/utils/htmlStatus/index.wxml" />
 <wxs src="../../utils/filter.wxs" module="filter" />
 
-<view wx:if="{{cate}}" class="container">
+<view wx:if="{{isshow==1}}" class="container">
   <view class='zzgg'>
     <text class='iconfont iconxiaolaba'></text>
     <view class='zzgg_box'>站长公告： 
@@ -31,7 +31,7 @@
         wx:for-item="item" 
         wx:key="idx">
         <swiper-item class="swiper_item">
-          <image wx:if="{{item}}" lazy-load='true' src="{{filter.imgIP(item.pic)}}" class="slide-image" />
+          <image wx:if="{{item}}" lazy-load='true' src="{{filter.imgIP(item.pic)}}" class="slide-image" mode="aspectFill"/>
 
         </swiper-item>
       </block>
@@ -134,4 +134,35 @@
     </view>
   </view>
 </view>
+<view  wx:if="{{isshow==2}}" class="p10 ha">
+  <image src='1_03.jpg' class='index_t_img' mode="widthFix"></image>
+  <view class='p10_0'>
+    <view class='from_warpper'>
+      <view class="flex mb15">
+        <text class='left_name'>身高:</text>
+        <view class='flex_1 input_box'>
+          <input class=' c_input' placeholder='请输入身高' type='digit' value="" bindinput='heightInput'></input>
+        </view>
+        <text class='right_dw'>cm</text>
+      </view>
+      <view class="flex mb15">
+        <text class='left_name'>体重:</text>
+        <view class='flex_1 input_box'>
+          <input class=' c_input' placeholder='请输入体重' type='digit' bindinput='weightInput'></input>
+        </view>
+        <text class='right_dw'>kg</text>
+      </view>
+      <view class='sex_box flex mb15'>
+        <text class="kuang {{sex==1?'active':''}}" data-num="1" bindtap="selesex"></text>
+        <text class='n_text'>男</text>
+        <text class="kuang {{sex==0?'active':''}}" data-num="0" bindtap="selesex"></text>
+        <text class='n_text'>女</text>
+      </view>
+      <view class='submit_box mb15'>
+        <button type='primary' bindtap="tapsubmit">开始计算</button>
+      </view>
+    </view>
+  </view>
+  </view>
 <template is="htmlStatus" data="{{...htmlStatus}}" />
+<view wx:if="{{isshow==3}}" class="zanwu" bindtap="getshow">请求失败请重试</view>

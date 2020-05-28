@@ -3,45 +3,124 @@
 var htmlStatus = require('../../utils/htmlStatus/index.js')
 const app = getApp()
 
+var reg = /^(\-|\+)?\d+(\.\d+)?$/;
 Page({
-	data: {
-		bannerimg: [],
-    statistics:'',
-    cate:'',
-    issue_top:'',
-    notice:'',
-    tablist:'',
-    datalist:[],
-    page:1,
-    tindex:0,
-		indicatorDots: true,
-		autoplay: true,
-		interval: 3000,
-		duration: 1000,
-		circular: true,
-    intfuc:'',
-    marquee_margin:0
-	},
-	//事件处理函数
-	bindViewTap: function() {
-		wx.navigateTo({
-			url: '../logs/logs'
-		})
-	},
-	onLoad: function() {
-    this.getbanner()
+  data: {
+    bannerimg: [],
+    statistics: '',
+    cate: '',
+    issue_top: '',
+    notice: '',
+    tablist: '',
+    datalist: [],
+    page: 1,
+    tindex: 0,
+    indicatorDots: true,
+    autoplay: true,
+    interval: 3000,
+    duration: 1000,
+    circular: true,
+    intfuc: '',
+    marquee_margin: 0,
+    isshow: 0,
+
+
+
+    height: '',
+    weight: '',
+    sex: '1',
+    info: ""
+  },
+  //事件处理函数
+  bindViewTap: function() {
+    wx.navigateTo({
+      url: '../logs/logs'
+    })
+  },
+  onLoad: function() {
+    var that = this
+    wx.request({
+      url: app.IPurl + '/api/index/ex',
+      data: {},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      method: 'POST',
+      success(res) {
+        console.log(res.data)
+        if (res.data.code == 1) {
+          if (res.data.ex == 1) {
+            that.setData({
+              isshow: 1
+            })
+
+          }else{
+            that.setData({
+              isshow: 2
+            })
+          }
+        }else{
+          that.setData({
+            isshow: 3
+          })
+        }
+      },
+      fail() {
+        that.setData({
+          isshow: 3
+        })
+      }
+    })
+    that.getbanner()
     // this.gettype()
-	},
+  },
+  getshow(){
+    var that = this
+    wx.request({
+      url: app.IPurl + '/api/index/ex',
+      data: {},
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      method: 'POST',
+      success(res) {
+        console.log(res.data)
+        if (res.data.code == 1) {
+          if (res.data.ex == 1) {
+            that.setData({
+              isshow: 1
+            })
+            that.getbanner()
+          } else {
+            that.setData({
+              isshow: 2
+            })
+          }
+        } else {
+          that.setData({
+            isshow: 3
+          })
+        }
+      },
+      fail() {
+        that.setData({
+          isshow: 3
+        })
+      }
+    })
+  },
   retry() {
     wx.setNavigationBarTitle({
       title: '加载中...',
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
     })
     this.setData({
-      page:1,
-      datalist:[]
+      page: 1,
+      datalist: []
     })
     if (getCurrentPages().length != 0) {
       getCurrentPages()[getCurrentPages().length - 1].onLoad()
@@ -51,37 +130,79 @@ Page({
       title: '首页',
     })
   },
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     console.log('下拉')
 
     this.retry()
   },
-	onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return {
       title: '阿拉尔市本地通便民网',
       // title: that.data.goods.goods_name,
-      success: function (res) {
+      success: function(res) {
         console.log('成功', res)
 
       }
     }
-	},
+  },
   /**
-  * 页面上拉触底事件的处理函数
-  */
-  onReachBottom: function () {
-    var that =this
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+    var that = this
     console.log('上拉')
     that.getdatalist(that.data.cur_id)
   },
+  heightInput: function(e) { //获取身高
+    this.setData({
+      height: e.detail.value
+    })
+  },
+  weightInput: function(e) { //获取体重
+    this.setData({
+      weight: e.detail.value
+    })
+  },
+  tapsubmit: function() { //提交事件
+    var caht = this;
+    if (!reg.test(this.data.height)) {
+      wx.showToast({
+        title: '身高不正确',
+        icon: "none",
+        duration: 2000
+      })
+      return false;
+    }
+    if (!reg.test(this.data.weight)) {
+      wx.showToast({
+        title: '体重不正确',
+        icon: "none",
+        duration: 2000
+      })
+      return false;
+    }
+    wx.navigateTo({
+      url: '../result/result?height=' + this.data.height + '&weight=' + this.data.weight + '&sex=' + this.data.sex,
+    })
+  },
+  selesex: function(e) { //选择性别
+    this.setData({
+      sex: e.target.dataset.num
+    })
+  },
+
+
+
+
+
   bindcur(e) {
     var that = this
     console.log(e.currentTarget.dataset.idx)
-    if (e.currentTarget.dataset.idx != that.data.tindex){
+    if (e.currentTarget.dataset.idx != that.data.tindex) {
       that.setData({
         tindex: e.currentTarget.dataset.idx,
         cur_id: e.currentTarget.dataset.id,
-        page:1
+        page: 1
       })
       that.getdatalist(e.currentTarget.dataset.id)
     }
@@ -92,18 +213,18 @@ Page({
     //   that.getOrderList()
     // }
   },
-	jump(e){
-    var that =this
+  jump(e) {
+    var that = this
     clearInterval(that.data.intervalfuc)
-		app.jump(e)
-	},
-  getbanner(){
+    app.jump(e)
+  },
+  getbanner() {
     var that = this
     const htmlStatus1 = htmlStatus.default(that)
     wx.request({
-      url: app.IPurl +'/api/index/index',
+      url: app.IPurl + '/api/index/index',
       data: {
-       
+
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -113,11 +234,11 @@ Page({
       success(res) {
         htmlStatus1.finish()
         console.log(res.data)
-        if (res.data.code == 1) {  //数据为空
+        if (res.data.code == 1) { //数据为空
           // clearInterval(interval)
-          var tablist=[{
-            id:'',
-            title:'最新'
+          var tablist = [{
+            id: '',
+            title: '最新'
           }]
           tablist = tablist.concat(res.data.data.cate)
           that.setData({
@@ -128,14 +249,14 @@ Page({
             notice: res.data.data.notice,
             tablist: tablist
           })
-          if (res.data.issue.data.length>0){
+          if (res.data.issue.data.length > 0) {
             that.data.page++
-            that.setData({
-              page: that.data.page,
-              datalist: res.data.issue.data,
-            })
+              that.setData({
+                page: that.data.page,
+                datalist: res.data.issue.data,
+              })
           }
-          
+
           // var interval = setInterval(function () {
           //   that.data.marquee_margin = that.data.marquee_margin + 1
           //   that.setData({
@@ -146,14 +267,14 @@ Page({
           // that.setData({
           //   intfuc : interval
           // })
-          
-        }else {
+
+        } else {
           htmlStatus1.error()
           wx.showToast({
             icon: 'none',
             title: '加载失败'
           })
-          
+
         }
       },
       fail() {
@@ -162,7 +283,7 @@ Page({
           icon: 'none',
           title: '加载失败'
         })
-        
+
       },
       complete() {
         // 停止下拉动作
@@ -170,13 +291,13 @@ Page({
       }
     })
   },
-  marquee0(){
-    var that=this
+  marquee0() {
+    var that = this
     clearInterval(that.data.intfuc)
     that.setData({
-      marquee_margin:0
+      marquee_margin: 0
     })
-    that.data.intfuc = setInterval(function () {
+    that.data.intfuc = setInterval(function() {
       that.data.marquee_margin = that.data.marquee_margin + 1
       that.setData({
         marquee_margin: that.data.marquee_margin
@@ -186,8 +307,8 @@ Page({
       intfuc: that.data.intfuc
     })
   },
-  marquee1(){
-    var that =this
+  marquee1() {
+    var that = this
     clearInterval(interval)
     // that.data.marquee_margin = that.data.marquee_margin + 1
     // that.setData({
@@ -196,23 +317,23 @@ Page({
     // setTimeout(function () {
     //   that.marquee1()
     // },30)
-    var interval = setInterval(function () {
+    var interval = setInterval(function() {
       that.data.marquee_margin = that.data.marquee_margin + 1
       that.setData({
         marquee_margin: that.data.marquee_margin
       })
     }, 30)
-    
+
   },
   getdatalist(id) {
     var that = this
     const htmlStatus1 = htmlStatus.default(that)
     wx.request({
-      url: app.IPurl +'/api/index/index',
+      url: app.IPurl + '/api/index/index',
       data: {
         cate_id: id,
         page: that.data.page,
-        token:wx.getStorageSync('token')
+        token: wx.getStorageSync('token')
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -223,34 +344,34 @@ Page({
         // 停止下拉动作
         wx.stopPullDownRefresh();
         console.log(res.data)
-        if (res.data.code == 1) {  //数据为空
-          if (that.data.page == 1 && res.data.issue.data.length==0){
+        if (res.data.code == 1) { //数据为空
+          if (that.data.page == 1 && res.data.issue.data.length == 0) {
             that.setData({
-              datalist:[]
+              datalist: []
             })
-            htmlStatus1.dataNull()    // 切换为空数据状态
+            htmlStatus1.dataNull() // 切换为空数据状态
             return
           }
           htmlStatus1.finish()
-          if (res.data.issue.data.length == 0){
+          if (res.data.issue.data.length == 0) {
             wx.showToast({
-              icon:'none',
+              icon: 'none',
               title: '到底了'
             })
             return
           }
-          
-          if (that.data.page == 1){
+
+          if (that.data.page == 1) {
             that.data.datalist = res.data.issue.data
-          }else{
+          } else {
             that.data.datalist = that.data.datalist.concat(res.data.issue.data)
           }
           that.data.page++
-          that.setData({
-            page:that.data.page,
-            datalist: that.data.datalist,
-          })
-        }else {
+            that.setData({
+              page: that.data.page,
+              datalist: that.data.datalist,
+            })
+        } else {
           if (res.data.msg) {
             wx.showToast({
               icon: 'none',
@@ -262,7 +383,7 @@ Page({
               title: '加载失败'
             })
           }
-          htmlStatus1.error()    // 切换为error状态
+          htmlStatus1.error() // 切换为error状态
         }
       },
       fail() {
@@ -270,7 +391,7 @@ Page({
           icon: 'none',
           title: '加载失败'
         })
-        htmlStatus1.error()    // 切换为error状态
+        htmlStatus1.error() // 切换为error状态
       },
       complete() {
         wx.setNavigationBarTitle({
@@ -279,7 +400,7 @@ Page({
       }
     })
   },
-  
+
   pveimg(e) {
     var curr = e.currentTarget.dataset.src
     var urls = e.currentTarget.dataset.array

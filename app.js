@@ -4,6 +4,29 @@ App({
   IPurl1:'https://alaer.800123456.top/',
   issue:0,
   onLaunch: function () {
+    // wx.request({
+    //   url: this.IPurl + '/api/index/ex',
+    //   data: {},
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded'
+    //   },
+    //   dataType: 'json',
+    //   method: 'POST',
+    //   success(res) {
+    //     console.log(res.data)
+    //     if (res.data.code == 1) {
+    //       if (res.data.ex == 1){
+    //         wx.reLaunch({
+    //           url: '/pages/index/index'
+    //         })
+    //       }
+    //     } 
+    //   },
+    //   fail() {
+        
+    //   }
+    // })
+    
     wx.removeStorageSync('userInfo')
     wx.removeStorageSync('userWxmsg')
     wx.removeStorageSync('tokenstr')

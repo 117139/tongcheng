@@ -2,7 +2,9 @@
   
   "pages": [
     "pages/index/index",
-    "pages/fabu1/fabu1",
+    "pages/result/result",
+    "pages/calendar/calendar",
+    "pages/index_w/index",
     "pages/my/my",
     "pages/details/details",
     "pages/list/list",
@@ -13,6 +15,7 @@
     "pages/gopl/gopl",
     "pages/login/login",
     "pages/myaddress/myaddress",
+    "pages/zhiding/zhiding",
     "pages/logs/logs"
   ],
   "window": {
@@ -23,5 +26,6 @@
     "navigationBarTitleText": "阿拉尔市本地通便民网",
     "navigationBarTextStyle": "black"
   },
+  
   "sitemapLocation": "sitemap.json"
 }

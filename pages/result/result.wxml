@@ -1,0 +1,64 @@
+<!--pages/result/result.wxml-->
+<view class="p10 ">
+  <view class='biaozhun' style='background:#3eae74;'>
+    <view class='flex biaozhun_box'>
+      <view class='flex_1 fz14 cf lh40 bb1 br1'>
+        BMI值
+      </view>
+      <view class='flex_1 fz14 cf lh40 bb1'>
+        身体状况
+      </view>
+      <view class='flex_1 fz14 cf lh20 bb1 br1'>
+        ＜18.5
+      </view>
+      <view class='flex_1 fz14 cf lh20 bb1'>
+        偏瘦
+      </view>
+      <view class='flex_1 fz14 cf lh20 bb1 br1'>
+        18.5~23.9
+      </view>
+      <view class='flex_1 fz14 cf lh20 bb1'>
+        正常
+      </view>
+      <view class='flex_1 fz14 cf lh20 bb1 br1'>
+        24~27.9
+      </view>
+      <view class='flex_1 fz14 cf lh20 bb1'>
+        偏胖
+      </view>
+      <view class='flex_1 fz14 cf lh20 br1' >
+        ≥28
+      </view>
+      <view class='flex_1 fz14 cf lh20'>
+        肥胖
+      </view>
+    </view>
+  </view>
+  <view class='shuju'>
+    <view class='shuju_list flex'>
+      <view class='sj_left'>
+        BMI值：
+      </view>
+      <view class='flex_1'>
+        {{bmi}}
+      </view>
+    </view>
+    <view class='shuju_list flex'>
+      <view class='sj_left'>
+        标准体重：
+      </view>
+      <view class='flex_1'>
+        {{result}}kg
+      </view>
+    </view>
+    <view class='shuju_list flex'>
+      <view class='sj_left'>
+        身体状况：
+      </view>
+      <view class='flex_1'>
+        {{status}}
+      </view>
+    </view>
+  </view>
+</view>
+

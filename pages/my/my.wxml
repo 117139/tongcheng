@@ -1,43 +1,33 @@
 <!--pages/my/my.wxml-->
-
+<import src="../../vendor/wxParse/wxParse.wxml" />
 <view class="container">
-	<view class="header">
-		<image class="mybg" src="../../static/images/mybg.jpg"></image>
-		<!-- <text class="iconfont iconshezhi" data-url="/pages/mymsg/mymsg" bindtap="jump"></text> -->
-		<view  class="tx_box">
+  <view class="header">
+    <image class="mybg" src="../../static/images/mybg.jpg"></image>
+    <!-- <text class="iconfont iconshezhi" data-url="/pages/mymsg/mymsg" bindtap="jump"></text> -->
+    <view class="tx_box">
       <image wx:if="{{!userInfo.nickName}}" class="user_tx" src="/static/images/tx.jpg" data-url="/pages/login/login" bindtap='jump'></image>
       <image wx:if="{{userInfo.nickName}}" class="user_tx" src='{{userInfo.avatarUrl}}'></image>
     </view>
-		<view wx:if="{{userInfo.nickName}}" class="user_name">{{userInfo.nickName}}</view>
-		<view wx:if="{{!userInfo.nickName}}" class="user_name"
-    data-url="/pages/login/login" bindtap='jump'>点击登录</view>
-	</view>
-	<view wx:if="{{issue==1}}" class="my_list" data-url="/pages/fabu1/fabu1" bindtap="jump">
-		<view class="list_name">
-			<text class="iconfont iconfabu"></text>
-			发布信息
-		</view>
-		<text class="iconfont iconnext"></text>
-	</view>
-	<view class="my_list" data-url="/pages/shoucang/shoucang" bindtap="jump">
-		<view class="list_name">
-			<text class="iconfont iconwujiaoxing1-copy"></text>
-			我的收藏
-		</view>
-		<text class="iconfont iconnext"></text>
-	</view>
-	<view class="my_list" data-url="/pages/mypl/mypl" bindtap="jump">
-		<view class="list_name">
-			<text class="iconfont iconpinglun"></text>
-			我的评论
-		</view>
-		<text class="iconfont iconnext"></text>
-	</view>
-	<view class="my_list" data-url="/pages/lishi/lishi" bindtap="jump">
-		<view class="list_name">
-			<text class="iconfont iconlishi2"></text>
-			浏览历史
-		</view>
-		<text class="iconfont iconnext"></text>
-	</view>
+    <view wx:if="{{userInfo.nickName}}" class="user_name">{{userInfo.nickName}}</view>
+    <view wx:if="{{!userInfo.nickName}}" class="user_name" data-url="/pages/login/login" bindtap='jump'>点击登录</view>
+  </view>
+  <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+  <view class="my_list" data-url="/pages/shoucang/shoucang" bindtap="jump">
+    <view class="list_name">
+      <text class="iconfont iconwujiaoxing1-copy"></text> 我的收藏
+    </view>
+    <text class="iconfont iconnext"></text>
+  </view>
+  <view class="my_list" data-url="/pages/mypl/mypl" bindtap="jump">
+    <view class="list_name">
+      <text class="iconfont iconpinglun"></text> 我的评论
+    </view>
+    <text class="iconfont iconnext"></text>
+  </view>
+  <view class="my_list" data-url="/pages/lishi/lishi" bindtap="jump">
+    <view class="list_name">
+      <text class="iconfont iconlishi2"></text> 浏览历史
+    </view>
+    <text class="iconfont iconnext"></text>
+  </view>
 </view>

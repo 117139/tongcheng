@@ -93,12 +93,22 @@ function html2json(html, bindName) {
                         node.classStr = value;
                     }
                     // has multi attibutes
-                    // make it array of attribute
-                    if (name == 'style') {
-                        console.log(value);
-                        //  value = value.join("")
-                        node.styleStr = value;
-                    }
+                  // make it array of attribute
+                  if (name == 'style') {
+                    console.log(value);
+                    //  value = value.join("")
+                    node.styleStr = value;
+                  }
+                  if (name == 'data-url') {
+                    console.log(value);
+                    //  value = value.join("")
+                    node.dataUrlStr = value;
+                  }
+                  if (name == 'bindtap') {
+                    console.log(value);
+                    //  value = value.join("")
+                    node.bindtapStr = value;
+                  }
                     if (value.match(/ /)) {
                         value = value.split(' ');
                     }
