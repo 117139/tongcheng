@@ -15,10 +15,10 @@
     </view>
   </view>
   <view class='w100 swiper_box'>
-    <view class='gomy' data-url="/pages/my/my" bindtap="jump">
+    <!-- <view class='gomy' data-url="/pages/my/my" bindtap="jump">
       <text class='iconfont iconwode'></text>
       <text>我的</text>
-    </view>
+    </view> -->
     <swiper class="swiper" 
       indicator-dots="{{indicatorDots}}" 
       autoplay="{{autoplay}}" 
@@ -36,6 +36,18 @@
         </swiper-item>
       </block>
     </swiper>
+  </view>
+  <view class="dis_flex aic ju_a index_tourl">
+    <view class="tourl_li dis_flex aic ju_c"  data-url="/pages/zhiding/zhiding" bindtap="jump">
+      <image src="/static/images/fabu_i.png"></image>
+      <text>发布信息</text>
+    </view>
+    <view class="tourl_li dis_flex aic ju_c"  data-url="/pages/my/my" bindtap="jump">
+      <image src="/static/images/my_i.png"></image>
+      <text>个人中心</text>
+    </view>
+    
+   
   </view>
   <view class='w100 imsg'>
     <view>

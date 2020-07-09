@@ -3,8 +3,6 @@
   "pages": [
     "pages/index/index",
     "pages/result/result",
-    "pages/calendar/calendar",
-    "pages/index_w/index",
     "pages/my/my",
     "pages/details/details",
     "pages/list/list",

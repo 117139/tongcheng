@@ -57,7 +57,7 @@ Page({
 
           }else{
             that.setData({
-              isshow: 2
+              isshow:2
             })
           }
         }else{
